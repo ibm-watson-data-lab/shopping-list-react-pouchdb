@@ -1,0 +1,9 @@
+.shoppinglistcarddivider {
+    border: 1px solid #ccc !important;
+}
+
+.vertmenu-list {
+    left: calc(100% - 36px);
+    top: -48px;
+    z-index: 5;
+}
