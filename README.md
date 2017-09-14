@@ -1,13 +1,13 @@
 # Shopping List - with React and PouchDB
 
+_Shopping List is an Offline First demo Progressive Web App built using [React](https://facebook.github.io/react/) and [PouchDB](https://pouchdb.com/). [This app is part of a series of Offline First demo apps, each built using a different stack.](https://github.com/ibm-watson-data-lab/shopping-list)_
+
 ## Tools
 
 - https://facebook.github.io/react/ - React, a Javascript library for building UIs
 - http://www.material-ui.com/ - Material Design components
 - https://pouchdb.com/ - PouchDB library
 - https://usecuid.org/ - unique id generation
-
-Shopping List is an Offline First demo Progressive Web App built using [React](https://facebook.github.io/react/) and [PouchDB](https://pouchdb.com/). [This app is part of a series of Offline First demo apps, each built using a different stack.](https://github.com/ibm-watson-data-lab/shopping-list)
 
 ## Quick Start
 
