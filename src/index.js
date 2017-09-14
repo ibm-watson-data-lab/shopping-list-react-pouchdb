@@ -18,7 +18,7 @@ localDB.createIndex({ index: { fields: ['type'] }}).then((response) => {
     console.log("RESPONSE: " +JSON.stringify(response));
     return response;
 }).then((indexresponse) => {
-    ReactDOM.render(<App shoppingListFactory={shoppingListFactory} shoppingListRepository={shoppingListRepository} localDB={localDB} />, document.getElementById('root'));
+    ReactDOM.render(<App shoppingListFactory={shoppingListFactory} shoppingListRepository={shoppingListRepository} localDB={localDB} remoteDB={remoteDB} />, document.getElementById('root'));
     registerServiceWorker();
 }).catch( reason => {
     console.log("in put catch");

@@ -17,10 +17,6 @@ const iconButtonElement = (
 
 class ShoppingLists extends React.Component {
 
-    getShoppingList = (evt, theId) => {
-        this.props.updateFunc(evt, theId);
-    }
-
     render() {
         let listItems = this.props.shoppingLists.map( (list) => 
         <Card key={list._id} style={{margin:"12px 0"}}>
@@ -32,15 +28,17 @@ class ShoppingLists extends React.Component {
                         <MenuItem 
                             primaryText="Open" 
                             onClick={()=>this.props.openListFunc(list._id)}/>
-                        <MenuItem>Edit</MenuItem>
+                        <MenuItem 
+                            primaryText="Edit"
+                            disabled={true}/>
                         <MenuItem 
                             primaryText="Delete" 
-                            onClick={()=>this.props.deleteFunc(list._id, list.title, true)}/>
+                            onClick={()=>this.props.deleteFunc(list._id)}/>
                     </IconMenu>
                 } />
             <hr className={'shoppinglistcarddivider'}/>
             <CardActions>
-                <Checkbox />
+                <Checkbox iconStyle={{color:grey500}}/>
             </CardActions>
         </Card>
     )

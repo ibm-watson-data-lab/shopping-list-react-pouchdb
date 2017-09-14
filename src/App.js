@@ -1,6 +1,8 @@
 import React from 'react';
-import { ShoppingListFactory, ShoppingListRepositoryPouchDB } from 'ibm-shopping-list-model';
+// import { ShoppingListFactory, ShoppingListRepositoryPouchDB } from 'ibm-shopping-list-model';
+// import {List} from 'immutable';
 import ShoppingLists from './components/ShoppingLists';
+import ShoppingList from './components/ShoppingList';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
@@ -9,21 +11,24 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import {Card, CardTitle} from 'material-ui/Card';
-import {blue600, grey900, white} from 'material-ui/styles/colors';
-import cuid from 'cuid';
+import IconButton from 'material-ui/IconButton';
+import KeyboardBackspace from 'material-ui/svg-icons/hardware/keyboard-backspace';
+import {blueGrey500, grey300, grey900, white} from 'material-ui/styles/colors';
 
 const NOLISTMSG = "Click the + sign below to create a shopping list."
+const NOITEMSMSG = "Click the + sign below to create a shopping list item."
 
 const muiTheme = getMuiTheme({
   palette: {
     textColor: grey900, 
     alternateTextColor: white, 
-    primary1Color: blue600
+    primary1Color: blueGrey500, 
+    borderColor: grey900
   }
 });
 
 const appBarStyle = {
-  backgroundColor: blue600, 
+  backgroundColor: blueGrey500, 
   width: "100%", 
   // padding: "8px", 
   // color: white
@@ -33,9 +38,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      shoppingList: null, 
       shoppingLists: [], 
-      shoppingListItems: [], 
-      addingList: false, 
+      shoppingListItems: null, 
+      adding: false, 
+      view: 'lists',
       newName: ''
     }
   }
@@ -52,37 +59,58 @@ class App extends React.Component {
         .on('error', err => console.log('uh oh! an error occured.'));
   }
 
-  //TODO work on this
   getShoppingLists = () => {
-      this.props.localDB.find({
-          selector: {
-              type: 'list'
-          }
-      }).then( response => {
-          console.log('got shopping lists from PouchDB. count: '+response.docs.length);
+      this.props.shoppingListRepository.find().then( response => {
+          console.log('got shopping lists from PouchDB. count: '+response.size);
           this.setState({
-            view: "lists", 
-            shoppingLists: response.docs.map(item => {return item}), 
-            shoppingListItems: []
+            view: 'lists', 
+            shoppingLists: response, 
+            shoppingList: null,
+            shoppingListItems: null
           });
       });
   }
 
   //TODO work on this
-  openShoppingList = (listId) => {
-    this.props.localDB.find({
-        selector: {
-            type: 'item', 
-            list: listId
-        }
-    }).then( response => {
-        console.log('got shopping list items from PouchDB for: '+listId+', count='+response.docs.length);
+  openShoppingList = (listid) => {
+    this.props.shoppingListRepository.get(listid).then( list => {
+      return list;
+    }).then(list => {
+      this.getShoppingListItems(listid).then(items => {
         this.setState({
-          view: "items", 
-          shoppingLists: [],
-          shoppingListItems: response.docs.map(item => {return item})
+          view: 'items', 
+          shoppingList: list,
+          shoppingListItems: items
         });
+      });
     });
+  }
+
+  getShoppingListItems = (listid) => {
+    return this.props.shoppingListRepository.findItems(listid);
+  }
+
+  refreshShoppingListItems = (listid) => {
+    this.props.shoppingListRepository.findItems(listid).then(items => {
+      this.setState({
+        view: 'items', 
+        shoppingListItems: items
+      });
+    });
+  }
+
+  deleteShoppingListItem = (itemid) => {
+    this.props.shoppingListRepository.getItem(itemid).then(item => {
+      return this.props.shoppingListRepository.deleteItem(item);
+    }).then(this.refreshShoppingListItems(this.state.shoppingList._id));
+  }
+
+  toggleItemCheck = (evt) => {
+    let itemid = evt.target.dataset.id;
+    this.props.shoppingListRepository.getItem(itemid).then(item => {
+      item = item.set('checked', !item.checked);
+      return this.props.shoppingListRepository.putItem(item);
+    }).then(this.refreshShoppingListItems(this.state.shoppingList._id));
   }
 
   deleteShoppingList = (listid) => {
@@ -101,56 +129,97 @@ class App extends React.Component {
     }).then(this.getShoppingLists);
   }
 
-  createNewShoppingList = (e) => {
+  createNewShoppingListOrItem = (e) => {
     e.preventDefault();
-    this.setState({addingList: false});
-    let shoppingList = this.props.shoppingListFactory.newShoppingList({
-      title: this.state.newName
-    });
-    this.props.shoppingListRepository.post(shoppingList).then(this.getShoppingLists);
+    this.setState({adding: false});
+    
+    if (this.state.view === 'lists') {
+      let shoppingList = this.props.shoppingListFactory.newShoppingList({
+        title: this.state.newName
+      });
+      this.props.shoppingListRepository.post(shoppingList).then(this.getShoppingLists);
+
+    } else if (this.state.view === 'items') {
+      let item = this.props.shoppingListFactory.newShoppingListItem({
+        title: this.state.newName
+      }, this.state.shoppingList);
+      this.props.shoppingListRepository.postItem(item).then(item => {
+        this.getShoppingListItems(this.state.shoppingList._id).then(items => {
+          this.setState({
+            view: 'items', 
+            shoppingListItems: items
+          });
+        });
+      });
+    }
   }
 
-  updateNewShoppingListName = (e) => {
+  updateName = (e) => {
     this.setState({newName: e.target.value});
   }
 
-  displayNewShoppingListUI = () => {
-    this.setState({addingList: true});
+  displayAddingUI = () => {
+    this.setState({adding: true});
   }
 
-  renderNewShoppingListUI = () => {
+  renderNewNameUI = () => {
     return (
-      <form onSubmit={this.createNewShoppingList}>
+      <form onSubmit={this.createNewShoppingListOrItem}>
           <Paper>
             <TextField className="form-control" type="text" 
-              hintText="Shopping list name..." 
-              onChange={this.updateNewShoppingListName} 
+              hintText="Name..." 
+              onChange={this.updateName} 
               fullWidth={true} />
           </Paper>
       </form>
     );
   }
 
+  renderShoppingLists = () => {
+    if (this.state.shoppingLists.length < 1) 
+      return ( <Card style={{margin:"12px 0"}}><CardTitle title={NOLISTMSG} /></Card> );
+    return (
+      <ShoppingLists 
+        shoppingLists={this.state.shoppingLists} 
+        openListFunc={this.openShoppingList} 
+        deleteFunc={this.deleteShoppingList} /> 
+    )
+  }
+
+  renderShoppingListItems = () => {
+    if (this.state.shoppingListItems.size < 1) 
+      return ( <Card style={{margin:"12px 0"}}><CardTitle title={NOITEMSMSG} /></Card> );
+    return (
+      <ShoppingList 
+        shoppingListItems={this.state.shoppingListItems} 
+        deleteFunc={this.deleteShoppingListItem} 
+        toggleItemCheckFunc={this.toggleItemCheck} /> 
+    )
+  }
+
+  renderBackButton = () => {
+    if (this.state.view === 'items') 
+      return (<IconButton touch={true} onClick={this.getShoppingLists}><KeyboardBackspace /></IconButton>)
+    else 
+      return <span/>
+  }
+
   render() {
-    console.log("IN RENDER");
+    let screenname = "Shopping Lists";
+    if (this.state.view === 'items') screenname = this.state.shoppingList.title;
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
       <div className="App">
-        <AppBar title="Shopping Lists" 
-                iconElementLeft={<span/>}
-                iconClassNameRight="muidocs-icon-navigation-expand-more" 
+        <AppBar title={screenname} 
+                iconElementLeft={this.renderBackButton()}
                 style={appBarStyle} />
-      {this.state.addingList ? this.renderNewShoppingListUI() : <span/>}
-      {this.state.shoppingLists.length>0 ?
-        <ShoppingLists 
-          shoppingLists={this.state.shoppingLists} openListFunc={this.openShoppingList} deleteFunc={this.deleteShoppingList} /> 
-          : <Card style={{margin:"12px 0"}}><CardTitle title={NOLISTMSG} /></Card>
-      }
-      <FloatingActionButton onClick={this.displayNewShoppingListUI}>
-          <ContentAdd />
-      </FloatingActionButton>
+        {this.state.adding ? this.renderNewNameUI() : <span/>}
+        {this.state.view === 'lists' ? this.renderShoppingLists() : this.renderShoppingListItems()}
+        <FloatingActionButton onClick={this.displayAddingUI} mini={true}>
+            <ContentAdd />
+        </FloatingActionButton>
       </div>
-    </MuiThemeProvider>
+      </MuiThemeProvider>
     )
   }
 }
