@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "cuid": "^1.3.8",
-    "ibm-shopping-list-model": "^0.1.0",
+    "ibm-shopping-list-model": "^0.1.10",
     "immutable": "^3.8.1",
     "material-ui": "^0.19.1",
     "pouchdb": "^6.3.4",
