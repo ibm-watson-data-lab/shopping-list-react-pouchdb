@@ -1,4 +1,5 @@
 import React from 'react';
+import { ShoppingListFactory, ShoppingListRepositoryPouchDB } from 'ibm-shopping-list-model';
 import ShoppingLists from './components/ShoppingLists';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -10,6 +11,8 @@ import Paper from 'material-ui/Paper';
 import {Card, CardTitle} from 'material-ui/Card';
 import {blue600, grey900, white} from 'material-ui/styles/colors';
 import cuid from 'cuid';
+
+const NOLISTMSG = "Click the + sign below to create a shopping list."
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -49,6 +52,7 @@ class App extends React.Component {
         .on('error', err => console.log('uh oh! an error occured.'));
   }
 
+  //TODO work on this
   getShoppingLists = () => {
       this.props.localDB.find({
           selector: {
@@ -64,6 +68,7 @@ class App extends React.Component {
       });
   }
 
+  //TODO work on this
   openShoppingList = (listId) => {
     this.props.localDB.find({
         selector: {
@@ -78,69 +83,48 @@ class App extends React.Component {
           shoppingListItems: response.docs.map(item => {return item})
         });
     });
-}
-
-  // takes a shopping list ID and uses that 
-  // to look up the document in the database and update it.
-  updateShoppingList = (listid, name, deleteMe=false) => {
-    console.log('In updateShoppingList with listid='+listid+', deleteMe='+deleteMe+', name='+name);
-    if (deleteMe) {
-      this.props.localDB.get(listid).then( (doc) => {
-        let deletedoc = {
-          '_id': doc._id, 
-          '_rev': doc._rev, 
-          '_deleted': true
-        }
-        return this.props.localDB.put(deletedoc);
-      }).then( (result) => {
-        this.getShoppingLists();
-      });
-    // create new list with name
-    } else if ((typeof listid === 'undefined' || !listid) && typeof name !== 'undefined') {
-      let doc = {
-        _id: 'list:'+cuid(), 
-        type: 'list', 
-        checked: false,
-        title: name
-      };
-      this.props.localDB.put(doc).then( (response) => {
-        console.log("New list response: ");
-        console.log(response);
-        this.getShoppingLists();
-      }).catch( (err) => {
-        console.log(err)
-      });
-    // change the name of an existing list
-    } else if (typeof listid !== 'undefined' && typeof name !== 'undefined') { 
-      this.props.localDB.get(listid).then( (doc) => {
-        doc.title = name;
-        return this.props.localDB.put(doc);
-      }).then( (result) => {
-        this.getShoppingLists();
-      });
-    }
   }
 
-  addShoppingList = () => {
-    this.setState({addingList: true});
+  deleteShoppingList = (listid) => {
+    this.props.shoppingListRepository.get(listid).then(shoppingList => {
+      shoppingList = shoppingList.set("_deleted", true);
+      return this.props.shoppingListRepository.put(shoppingList);
+    }).then(result => {
+      this.getShoppingLists();
+    });
   }
 
-  newShoppingList = (e) => {
+  renameShoppingList = (listid, newname) => {
+    this.props.shoppingListRepository.get(listid).then(shoppingList => {
+      shoppingList = shoppingList.set('title', newname);
+      return this.props.shoppingListRepository.put(shoppingList);
+    }).then(this.getShoppingLists);
+  }
+
+  createNewShoppingList = (e) => {
     e.preventDefault();
-    this.updateShoppingList(null, this.state.newName);
+    this.setState({addingList: false});
+    let shoppingList = this.props.shoppingListFactory.newShoppingList({
+      title: this.state.newName
+    });
+    this.props.shoppingListRepository.post(shoppingList).then(this.getShoppingLists);
   }
 
-  changeNewShoppingListName = (e) => {
+  updateNewShoppingListName = (e) => {
     this.setState({newName: e.target.value});
   }
 
-  showNewListUI = () => {
+  displayNewShoppingListUI = () => {
+    this.setState({addingList: true});
+  }
+
+  renderNewShoppingListUI = () => {
     return (
-      <form onSubmit={this.newShoppingList}>
+      <form onSubmit={this.createNewShoppingList}>
           <Paper>
             <TextField className="form-control" type="text" 
               hintText="Shopping list name..." 
-              onChange={this.changeNewShoppingListName} 
+              onChange={this.updateNewShoppingListName} 
               fullWidth={true} />
           </Paper>
       </form>
@@ -148,6 +132,7 @@ class App extends React.Component {
   }
 
   render() {
+    console.log("IN RENDER");
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
       <div className="App">
@@ -155,13 +140,13 @@ class App extends React.Component {
                 iconElementLeft={<span/>}
                 iconClassNameRight="muidocs-icon-navigation-expand-more" 
                 style={appBarStyle} />
-      {this.state.addingList ? this.showNewListUI() : <span/>}
+      {this.state.addingList ? this.renderNewShoppingListUI() : <span/>}
       {this.state.shoppingLists.length>0 ?
         <ShoppingLists 
-          shoppingLists={this.state.shoppingLists} openListFunc={this.openShoppingList} updateFunc={this.updateShoppingList} /> 
-          : <Card style={{margin:"12px 0"}}><CardTitle title="NO LISTS" /></Card>
+          shoppingLists={this.state.shoppingLists} openListFunc={this.openShoppingList} deleteFunc={this.deleteShoppingList} /> 
+          : <Card style={{margin:"12px 0"}}><CardTitle title={NOLISTMSG} /></Card>
       }
-      <FloatingActionButton onClick={this.addShoppingList}>
+      <FloatingActionButton onClick={this.displayNewShoppingListUI}>
           <ContentAdd />
       </FloatingActionButton>
       </div>

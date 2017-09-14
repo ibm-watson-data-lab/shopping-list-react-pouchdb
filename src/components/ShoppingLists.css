@@ -3,7 +3,8 @@
 }
 
 .vertmenu-list {
-    left: calc(100% - 36px);
-    top: -48px;
+    position: absolute !important;
+    left: calc(100% - 48px);
+    top: 0px;
     z-index: 5;
 }
