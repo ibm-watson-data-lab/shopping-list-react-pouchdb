@@ -64,7 +64,8 @@ class ShoppingLists extends React.Component {
     let listItems = this.props.shoppingLists.map( (list) => 
     <Card key={list._id} style={{margin:"12px 0"}}>
       <CardTitle 
-        title={list.title}
+        title={list.title} 
+        subtitle={(this.props.checkedCounts.get(list._id) || 0)+' of '+(this.props.totalCounts.get(list._id) || 0)+' items checked.'}
         children={
           <IconMenu iconButtonElement={iconButtonElement}   
             className="vertmenu-list">
@@ -79,10 +80,10 @@ class ShoppingLists extends React.Component {
               onClick={()=>this.props.deleteListFunc(list._id)}/>
           </IconMenu>
         } />
-      <hr className={'shoppinglistcarddivider'}/>
-      <CardActions>
-        <Checkbox iconStyle={{color:grey500}}/>
-      </CardActions>
+      {/* <hr className={'shoppinglistcarddivider'}/> */}
+      {/* <CardActions> */}
+        {/* <Checkbox iconStyle={{color:grey500}}/> */}
+      {/* </CardActions> */}
     </Card>
   )
   return (

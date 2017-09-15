@@ -1,6 +1,6 @@
 import React from 'react';
 // import { ShoppingListFactory, ShoppingListRepositoryPouchDB } from 'ibm-shopping-list-model';
-// import {List} from 'immutable';
+import {List} from 'immutable';
 import ShoppingLists from './components/ShoppingLists';
 import ShoppingList from './components/ShoppingList';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -13,22 +13,22 @@ import Paper from 'material-ui/Paper';
 import {Card, CardTitle} from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import KeyboardBackspace from 'material-ui/svg-icons/hardware/keyboard-backspace';
-import {blueGrey500, grey900, white} from 'material-ui/styles/colors';
+import {grey800, lightBlue500, amber900, white} from 'material-ui/styles/colors';
 
 const NOLISTMSG = "Click the + sign below to create a shopping list."
 const NOITEMSMSG = "Click the + sign below to create a shopping list item."
 
 const muiTheme = getMuiTheme({
   palette: {
-    textColor: grey900, 
+    textColor: grey800, 
     alternateTextColor: white, 
-    primary1Color: blueGrey500, 
-    borderColor: grey900
+    // primary1Color: lightBlue500,
+    accent1Color: amber900
   }
 });
 
 const appBarStyle = {
-  backgroundColor: blueGrey500, 
+  backgroundColor: lightBlue500, 
   width: "100%", 
   // padding: "8px", 
   // color: white
@@ -40,6 +40,8 @@ class App extends React.Component {
     this.state = {
       shoppingList: null, 
       shoppingLists: [], 
+      totalShoppingListItemCount: List(), //Immutable.js List with list ids as keys
+      checkedTotalShoppingListItemCount: List(), //Immutable.js List with list ids as keys
       shoppingListItems: null, 
       adding: false, 
       view: 'lists',
@@ -60,18 +62,41 @@ class App extends React.Component {
   }
 
   getShoppingLists = () => {
-      this.props.shoppingListRepository.find().then( response => {
-          console.log('got shopping lists from PouchDB. count: '+response.size);
-          this.setState({
-            view: 'lists', 
-            shoppingLists: response, 
-            shoppingList: null,
-            shoppingListItems: null
-          });
+    let checkedCount = List();
+    let totalCount = List();
+    let lists = null;
+    this.props.shoppingListRepository.find().then( foundLists => {
+      console.log('got Shopping Lists from PouchDB. count: '+foundLists.size);
+      lists = foundLists;
+      return foundLists;
+    }).then( foundLists => {
+      return this.props.shoppingListRepository.findItemsCountByList();
+    }).then( countsList => { 
+      console.log('TOTAL COUNT LIST');
+      console.log(countsList);
+      totalCount = countsList;
+      return this.props.shoppingListRepository.findItemsCountByList({
+        selector: {
+          type: 'item', 
+          checked: true
+        },
+        fields: ['list']
       });
+    }).then( checkedList => {
+      console.log('CHECKED LIST');
+      console.log(checkedList);
+      checkedCount = checkedList;
+      this.setState({
+        view: 'lists', 
+        shoppingLists: lists, 
+        shoppingList: null,
+        shoppingListItems: null, 
+        checkedTotalShoppingListItemCount: checkedCount, 
+        totalShoppingListItemCount: totalCount
+      });
+    });
   }
 
-  //TODO work on this
   openShoppingList = (listid) => {
     this.props.shoppingListRepository.get(listid).then( list => {
       return list;
@@ -87,11 +112,21 @@ class App extends React.Component {
   }
 
   getShoppingListItems = (listid) => {
-    return this.props.shoppingListRepository.findItems(listid);
+    return this.props.shoppingListRepository.findItems({
+      selector: {
+        type: 'item', 
+        list: listid
+      }
+    });
   }
 
   refreshShoppingListItems = (listid) => {
-    this.props.shoppingListRepository.findItems(listid).then(items => {
+    this.props.shoppingListRepository.findItems({
+      selector: {
+        type: 'item', 
+        list: listid
+      }
+    }).then(items => {
       this.setState({
         view: 'items', 
         shoppingListItems: items
@@ -172,12 +207,14 @@ class App extends React.Component {
 
   renderNewNameUI = () => {
     return (
-      <form onSubmit={this.createNewShoppingListOrItem}>
+      <form onSubmit={this.createNewShoppingListOrItem} style={{marginTop:'12px'}}>
           <Paper>
             <TextField className="form-control" type="text" 
               hintText="Name..." 
               onChange={this.updateName} 
-              fullWidth={true} />
+              fullWidth={false} 
+              style={{padding:'0px 12px',width:'calc(100% - 24px)'}}
+              underlineStyle={{width:'calc(100% - 24px)'}}/>
           </Paper>
       </form>
     );
@@ -191,7 +228,9 @@ class App extends React.Component {
         shoppingLists={this.state.shoppingLists} 
         openListFunc={this.openShoppingList} 
         deleteListFunc={this.deleteShoppingList} 
-        renameListFunc={this.renameShoppingList} /> 
+        renameListFunc={this.renameShoppingList} 
+        totalCounts={this.state.totalShoppingListItemCount}
+        checkedCounts={this.state.checkedTotalShoppingListItemCount} /> 
     )
   }
 
@@ -223,11 +262,13 @@ class App extends React.Component {
         <AppBar title={screenname} 
                 iconElementLeft={this.renderBackButton()}
                 style={appBarStyle} />
+        <div className={'listsanditems'} style={{margin:'8px'}}>
         {this.state.adding ? this.renderNewNameUI() : <span/>}
         {this.state.view === 'lists' ? this.renderShoppingLists() : this.renderShoppingListItems()}
         <FloatingActionButton onClick={this.displayAddingUI} mini={true}>
             <ContentAdd />
         </FloatingActionButton>
+        </div>
       </div>
       </MuiThemeProvider>
     )
