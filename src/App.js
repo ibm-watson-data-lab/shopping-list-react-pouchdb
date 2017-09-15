@@ -13,7 +13,7 @@ import Paper from 'material-ui/Paper';
 import {Card, CardTitle} from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import KeyboardBackspace from 'material-ui/svg-icons/hardware/keyboard-backspace';
-import {blueGrey500, grey300, grey900, white} from 'material-ui/styles/colors';
+import {blueGrey500, grey900, white} from 'material-ui/styles/colors';
 
 const NOLISTMSG = "Click the + sign below to create a shopping list."
 const NOITEMSMSG = "Click the + sign below to create a shopping list item."
@@ -99,6 +99,14 @@ class App extends React.Component {
     });
   }
 
+  renameShoppingListItem = (itemid, newname) => {
+    console.log('IN renameShoppingListItem with id='+itemid+', name='+newname);
+    this.props.shoppingListRepository.getItem(itemid).then(item => {
+      item = item.set('title', newname);
+      return this.props.shoppingListRepository.putItem(item);
+    }).then(this.refreshShoppingListItems(this.state.shoppingList._id));
+  }
+
   deleteShoppingListItem = (itemid) => {
     this.props.shoppingListRepository.getItem(itemid).then(item => {
       return this.props.shoppingListRepository.deleteItem(item);
@@ -182,7 +190,8 @@ class App extends React.Component {
       <ShoppingLists 
         shoppingLists={this.state.shoppingLists} 
         openListFunc={this.openShoppingList} 
-        deleteFunc={this.deleteShoppingList} /> 
+        deleteListFunc={this.deleteShoppingList} 
+        renameListFunc={this.renameShoppingList} /> 
     )
   }
 
@@ -193,7 +202,8 @@ class App extends React.Component {
       <ShoppingList 
         shoppingListItems={this.state.shoppingListItems} 
         deleteFunc={this.deleteShoppingListItem} 
-        toggleItemCheckFunc={this.toggleItemCheck} /> 
+        toggleItemCheckFunc={this.toggleItemCheck} 
+        renameItemFunc={this.renameShoppingListItem} /> 
     )
   }
 
