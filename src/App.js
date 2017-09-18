@@ -180,13 +180,13 @@ class App extends React.Component {
       let shoppingList = this.props.shoppingListFactory.newShoppingList({
         title: this.state.newName
       });
-      this.props.shoppingListRepository.post(shoppingList).then(this.getShoppingLists);
+      this.props.shoppingListRepository.put(shoppingList).then(this.getShoppingLists);
 
     } else if (this.state.view === 'items') {
       let item = this.props.shoppingListFactory.newShoppingListItem({
         title: this.state.newName
       }, this.state.shoppingList);
-      this.props.shoppingListRepository.postItem(item).then(item => {
+      this.props.shoppingListRepository.putItem(item).then(item => {
         this.getShoppingListItems(this.state.shoppingList._id).then(items => {
           this.setState({
             view: 'items', 

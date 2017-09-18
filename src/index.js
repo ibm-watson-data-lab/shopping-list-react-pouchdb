@@ -14,10 +14,7 @@ const remoteDB = new PouchDB(Credentials.cloudant_url);
 const shoppingListFactory = new ShoppingListFactory();
 const shoppingListRepository = new ShoppingListRepositoryPouchDB(localDB);
 
-localDB.createIndex({ index: { fields: ['type'] }}).then((response) => {
-    console.log("RESPONSE: " +JSON.stringify(response));
-    return response;
-}).then((indexresponse) => {
+shoppingListRepository.ensureIndexes().then((response) => {
     ReactDOM.render(<App shoppingListFactory={shoppingListFactory} shoppingListRepository={shoppingListRepository} localDB={localDB} remoteDB={remoteDB} />, document.getElementById('root'));
     registerServiceWorker();
 }).catch( reason => {
