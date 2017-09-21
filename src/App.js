@@ -13,7 +13,7 @@ import Paper from 'material-ui/Paper';
 import {Card, CardTitle} from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import KeyboardBackspace from 'material-ui/svg-icons/hardware/keyboard-backspace';
-import {grey800, lightBlue500, amber900, white} from 'material-ui/styles/colors';
+import {grey800, lightBlue500, amber500, white} from 'material-ui/styles/colors';
 
 const NOLISTMSG = "Click the + sign below to create a shopping list."
 const NOITEMSMSG = "Click the + sign below to create a shopping list item."
@@ -22,8 +22,8 @@ const muiTheme = getMuiTheme({
   palette: {
     textColor: grey800, 
     alternateTextColor: white, 
-    // primary1Color: lightBlue500,
-    accent1Color: amber900
+    primary1Color: amber500,
+    accent1Color: lightBlue500
   }
 });
 
@@ -282,6 +282,14 @@ class App extends React.Component {
       return <span/>
   }
 
+  renderAddButton = () => {
+    return (
+    <FloatingActionButton onClick={this.displayAddingUI} mini={true}>
+      <ContentAdd />
+    </FloatingActionButton>
+    );
+}
+
   render() {
     let screenname = "Shopping Lists";
     if (this.state.view === 'items') screenname = this.state.shoppingList.title;
@@ -290,13 +298,11 @@ class App extends React.Component {
       <div className="App">
         <AppBar title={screenname} 
                 iconElementLeft={this.renderBackButton()}
-                style={appBarStyle} />
+                style={appBarStyle} 
+                iconElementRight={this.renderAddButton()} />
         <div className={'listsanditems'} style={{margin:'8px'}}>
-        {this.state.adding ? this.renderNewNameUI() : <span/>}
-        {this.state.view === 'lists' ? this.renderShoppingLists() : this.renderShoppingListItems()}
-        <FloatingActionButton onClick={this.displayAddingUI} mini={true}>
-            <ContentAdd />
-        </FloatingActionButton>
+          {this.state.adding ? this.renderNewNameUI() : <span/>}
+          {this.state.view === 'lists' ? this.renderShoppingLists() : this.renderShoppingListItems()}
         </div>
       </div>
       </MuiThemeProvider>
