@@ -156,6 +156,34 @@ class App extends React.Component {
     }).then(this.refreshShoppingListItems(this.state.shoppingList._id));
   }
 
+  checkAllListItems = (listid) => {
+    let listcheck = true;
+    this.getShoppingListItems(listid).then( items => {
+      let newitems = [];
+      items.forEach(item => {
+        if (!item.checked) {
+          newitems.push( item.mergeDeep({checked:true}) );
+        }
+      }, this);
+      // if all items were already checked let's uncheck them all
+      if (newitems.length === 0) {
+        listcheck = false;
+        items.forEach(item => {
+          newitems.push( item.mergeDeep({checked:false}) );
+        }, this);
+      }
+      let listOfShoppingListItems = this.props.shoppingListFactory.newListOfShoppingListItems(newitems);
+      return this.props.shoppingListRepository.putItemsBulk(listOfShoppingListItems);
+    }).then(newitemsresponse => {
+      return this.props.shoppingListRepository.get(listid);
+    }).then(shoppingList => {
+      shoppingList = shoppingList.set("checked", listcheck);
+      return this.props.shoppingListRepository.put(shoppingList);
+    }).then(shoppingList => {
+      this.getShoppingLists();
+    });
+  }
+
   deleteShoppingList = (listid) => {
     this.props.shoppingListRepository.get(listid).then(shoppingList => {
       shoppingList = shoppingList.set("_deleted", true);
@@ -229,6 +257,7 @@ class App extends React.Component {
         openListFunc={this.openShoppingList} 
         deleteListFunc={this.deleteShoppingList} 
         renameListFunc={this.renameShoppingList} 
+        checkAllFunc={this.checkAllListItems} 
         totalCounts={this.state.totalShoppingListItemCount}
         checkedCounts={this.state.checkedTotalShoppingListItemCount} /> 
     )

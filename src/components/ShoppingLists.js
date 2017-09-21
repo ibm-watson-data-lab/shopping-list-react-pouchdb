@@ -65,7 +65,6 @@ class ShoppingLists extends React.Component {
     <Card key={list._id} style={{margin:"12px 0"}}>
       <CardTitle 
         title={list.title} 
-        subtitle={(this.props.checkedCounts.get(list._id) || 0)+' of '+(this.props.totalCounts.get(list._id) || 0)+' items checked.'}
         children={
           <IconMenu iconButtonElement={iconButtonElement}   
             className="vertmenu-list">
@@ -81,9 +80,12 @@ class ShoppingLists extends React.Component {
           </IconMenu>
         } />
       {/* <hr className={'shoppinglistcarddivider'}/> */}
-      {/* <CardActions> */}
-        {/* <Checkbox iconStyle={{color:grey500}}/> */}
-      {/* </CardActions> */}
+      <CardActions>
+        <Checkbox label={(this.props.checkedCounts.get(list._id) || 0)+' of '+(this.props.totalCounts.get(list._id) || 0)+' items checked'}
+          checked={list.checked} 
+          onCheck={()=>this.props.checkAllFunc(list._id)} 
+          iconStyle={{color:grey500}}/>
+      </CardActions>
     </Card>
   )
   return (
