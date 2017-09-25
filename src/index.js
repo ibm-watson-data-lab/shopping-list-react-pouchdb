@@ -14,9 +14,9 @@ const remoteDB = new PouchDB(Credentials.cloudant_url);
 const shoppingListFactory = new ShoppingListFactory();
 const shoppingListRepository = new ShoppingListRepositoryPouchDB(localDB);
 
+registerServiceWorker();
 shoppingListRepository.ensureIndexes().then((response) => {
     ReactDOM.render(<App shoppingListFactory={shoppingListFactory} shoppingListRepository={shoppingListRepository} localDB={localDB} remoteDB={remoteDB} />, document.getElementById('root'));
-    registerServiceWorker();
 }).catch( reason => {
     console.log("in put catch");
     console.log(reason) 
