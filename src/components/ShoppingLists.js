@@ -6,7 +6,6 @@ import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import {grey500} from 'material-ui/styles/colors';
 import './ShoppingLists.css';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -14,7 +13,7 @@ import TextField from 'material-ui/TextField';
 
 const iconButtonElement = (
     <IconButton touch={true} tooltip="more" tooltipPosition="bottom-left">
-        <MoreVertIcon color={grey500} />
+        <MoreVertIcon />
     </IconButton>
 );
 
@@ -83,8 +82,7 @@ class ShoppingLists extends React.Component {
       <CardActions>
         <Checkbox label={(this.props.checkedCounts.get(list._id) || 0)+' of '+(this.props.totalCounts.get(list._id) || 0)+' items checked'}
           checked={list.checked} 
-          onCheck={()=>this.props.checkAllFunc(list._id)} 
-          iconStyle={{color:grey500}}/>
+          onCheck={()=>this.props.checkAllFunc(list._id)} />
       </CardActions>
     </Card>
   )

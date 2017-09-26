@@ -6,16 +6,14 @@ import MenuItem from 'material-ui/MenuItem';
 import IconMenu from 'material-ui/IconMenu';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import {grey500} from 'material-ui/styles/colors';
 import './ShoppingList.css';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-// import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 
 const moveVertButton = (
     <IconButton touch={true} tooltip="more" tooltipPosition="bottom-left">
-        <MoreVertIcon color={grey500} />
+        <MoreVertIcon />
     </IconButton>
 );
 

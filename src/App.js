@@ -13,7 +13,7 @@ import Paper from 'material-ui/Paper';
 import {Card, CardTitle} from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import KeyboardBackspace from 'material-ui/svg-icons/hardware/keyboard-backspace';
-import {grey800, lightBlue500, teal900, white} from 'material-ui/styles/colors';
+import {grey800, blueGrey500, pinkA100, white} from 'material-ui/styles/colors';
 
 const NOLISTMSG = "Click the + sign below to create a shopping list."
 const NOITEMSMSG = "Click the + sign below to create a shopping list item."
@@ -22,13 +22,13 @@ const muiTheme = getMuiTheme({
   palette: {
     textColor: grey800, 
     alternateTextColor: white, 
-    primary1Color: teal900,
-    accent1Color: lightBlue500
+    primary1Color: pinkA100,
+    accent1Color: blueGrey500
   }
 });
 
 const appBarStyle = {
-  backgroundColor: lightBlue500, 
+  backgroundColor: blueGrey500, 
   width: "100%", 
   // padding: "8px", 
   // color: white
