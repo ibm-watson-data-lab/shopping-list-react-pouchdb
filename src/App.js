@@ -238,6 +238,7 @@ class App extends React.Component {
       <form onSubmit={this.createNewShoppingListOrItem} style={{marginTop:'12px'}}>
           <Paper>
             <TextField className="form-control" type="text" 
+              autoFocus={true} 
               hintText="Name..." 
               onChange={this.updateName} 
               fullWidth={false} 
