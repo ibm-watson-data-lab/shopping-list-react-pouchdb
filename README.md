@@ -37,9 +37,9 @@ When the reader has completed this Code Pattern, they will understand how to:
 * [Material UI](http://www.material-ui.com/) - React components that implement Google's Material Design
 * [Apache CouchDB](http://couchdb.apache.org/) - modern, document database hosted on your server or in the cloud.
 
-## Quick Start (THIS IS NOT A SECTION IN THE TEMPLATE. WHERE DO WE WANT THIS INFO?)
+## Live demo
 
-To see this app in action without installing anything, simply visit https://ibm-watson-data-lab.github.io/shopping-list-react-pouchdb in a web browser or mobile device.
+To see this app in action without installing anything, simply visit https://ibm-watson-data-lab.github.io/shopping-list-react-pouchdb in a web browser or on a mobile device.
 
 # Steps (UPDATE AS NEEDED)
 * [Deploy to IBM Cloud](#deploy-to-bluemix) **OR** [Run locally](#run-locally)
