@@ -33,3 +33,5 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 To see this app in action without installing anything, simply visit https://ibm-watson-data-lab.github.io/shopping-list-react-pouchdb in a web browser or mobile device.
 
+# License
+[Apache 2.0](LICENSE)
