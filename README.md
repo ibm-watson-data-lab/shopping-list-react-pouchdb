@@ -37,9 +37,9 @@ When the reader has completed this Code Pattern, they will understand how to:
 * [Material UI](http://www.material-ui.com/) - React components that implement Google's Material Design
 * [Apache CouchDB](http://couchdb.apache.org/) - modern, document database hosted on your server or in the cloud.
 
-## Quick Start (THIS IS NOT A SECTION IN THE TEMPLATE. WHERE DO WE WANT THIS INFO?)
+## Live demo
 
-To see this app in action without installing anything, simply visit https://ibm-watson-data-lab.github.io/shopping-list-react-pouchdb in a web browser or mobile device.
+To see this app in action without installing anything, simply visit https://ibm-watson-data-lab.github.io/shopping-list-react-pouchdb in a web browser or on a mobile device.
 
 # Steps (UPDATE AS NEEDED)
 * [Deploy to IBM Cloud](#deploy-to-bluemix) **OR** [Run locally](#run-locally)
@@ -166,30 +166,18 @@ To disable tracking, simply remove ``require('metrics-tracker-client').track();`
 
 <!--Include any relevant links-->
 
-# Links (UPDATE AS NEEDED)
+# Links
+* [Live Demo](https://ibm-watson-data-lab.github.io/shopping-list-react-pouchdb)
 * [More Shopping List Sample Apps](https://github.com/ibm-watson-data-lab/shopping-list)
-<!--Keep the link to the main repo (above) in your list. Update the remainder of the list based on what's relevant for your specific project.-->
 * [Offline First](http://offlinefirst.org/)
 * [Progressive Web Apps](https://developers.google.com/web/progressive-web-apps/)
 * [Service Workers](https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers)
 * [Web App Manifest](https://w3c.github.io/manifest/)
+* [React](https://reactjs.org/)
 * [PouchDB](https://pouchdb.com/)
 * [Apache CouchDB](https://couchdb.apache.org/)
 * [IBM Cloudant](https://www.ibm.com/cloud/cloudant)
-* [Materialize CSS](http://materializecss.com/getting-started.html)
-* [JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-
-<!-- pick the relevant ones from below -->
-# Learn more (UPDATE AS NEEDED)
-
-* **Artificial Intelligence Code Patterns**: Enjoyed this Code Pattern? Check out our other [AI Code Patterns](https://developer.ibm.com/code/technologies/artificial-intelligence/).
-* **Data Analytics Code Patterns**: Enjoyed this Code Pattern? Check out our other [Data Analytics Code Patterns](https://developer.ibm.com/code/technologies/data-science/)
-* **AI and Data Code Pattern Playlist**: Bookmark our [playlist](https://www.youtube.com/playlist?list=PLzUbsvIyrNfknNewObx5N7uGZ5FKH0Fde) with all of our Code Pattern videos
-* **With Watson**: Want to take your Watson app to the next level? Looking to utilize Watson Brand assets? [Join the With Watson program](https://www.ibm.com/watson/with-watson/) to leverage exclusive brand, marketing, and tech resources to amplify and accelerate your Watson embedded commercial solution.
-* **Data Science Experience**: Master the art of data science with IBM's [Data Science Experience](https://datascience.ibm.com/)
-* **PowerAI**: Get started or get scaling, faster, with a software distribution for machine learning running on the Enterprise Platform for AI: [IBM Power Systems](https://www.ibm.com/ms-en/marketplace/deep-learning-platform)
-* **Spark on IBM Cloud**: Need a Spark cluster? Create up to 30 Spark executors on IBM Cloud with our [Spark service](https://console.bluemix.net/catalog/services/apache-spark)
-* **Kubernetes on IBM Cloud**: Deliver your apps with the combined the power of [Kubernetes and Docker on IBM Cloud](https://www.ibm.com/cloud-computing/bluemix/containers)
+* [Material UI](http://www.material-ui.com/) 
 
 # License
 [Apache 2.0](LICENSE)
