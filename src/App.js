@@ -15,8 +15,8 @@ import IconButton from 'material-ui/IconButton';
 import KeyboardBackspace from 'material-ui/svg-icons/hardware/keyboard-backspace';
 import {grey800, blueGrey500, pinkA100, white} from 'material-ui/styles/colors';
 
-const NOLISTMSG = "Click the + sign below to create a shopping list."
-const NOITEMSMSG = "Click the + sign below to create a shopping list item."
+const NOLISTMSG = "Click the + sign above to create a shopping list."
+const NOITEMSMSG = "Click the + sign above to create a shopping list item."
 
 const muiTheme = getMuiTheme({
   palette: {
