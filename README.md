@@ -109,7 +109,7 @@ Configure CouchDB for a [single-node setup](http://docs.couchdb.org/en/2.1.0/ins
 
 Sign up for an [IBM Cloud](https://console.ng.bluemix.net/) account, if you do not already have one.
 
-Once you are logged in to IBM Cloud, create a new Cloudant instance on the [Cloudant NoSQL DB Bluemix Catalog](https://console.ng.bluemix.net/catalog/services/cloudant-nosql-db) page. This should take you to a page representing the newly-created service instance. Click the "Service credentials" link. You should have one set of service credentials listed. Click "View credentials" which should show you a JSON object containing your service credentials. Copy the value for the `url` key to your clipboard (the value will be in the form of `https://username:password@uniqueid-bluemix.cloudant.com`).
+Once you are logged in to IBM Cloud, create a new Cloudant instance on the [Cloudant NoSQL DB IBM Cloud Catalog](https://console.ng.bluemix.net/catalog/services/cloudant-nosql-db) page. This should take you to a page representing the newly-created service instance. Click the "Service credentials" link. You should have one set of service credentials listed. Click "View credentials" which should show you a JSON object containing your service credentials. Copy the value for the `url` key to your clipboard (the value will be in the form of `https://username:password@uniqueid-bluemix.cloudant.com`).
 
 ## Database and replication setup (UPDATE AS NEEDED)
 1. [Create the remote database](#1-create-the-remote-database)
@@ -133,7 +133,7 @@ Cross-Origin Resource Sharing (CORS) needs to be enabled. Use your Cloudant or C
 ### 3. Set the replication target (UPDATE AS NEEDED)
 
 Run the Shopping List app and use the `Replicator` form to enter your Database URL.
-If you use the Bluemix Cloudant URL taken from the service credentials as described above, the URL includes user and password GUIDs.
+If you use the IBM Cloud Cloudant URL taken from the service credentials as described above, the URL includes user and password GUIDs.
 
 Add `/shopping-list` to the URL to connect to the database that you created.
 
