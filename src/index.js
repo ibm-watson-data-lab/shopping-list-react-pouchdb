@@ -6,11 +6,19 @@ import registerServiceWorker from './registerServiceWorker';
 import { ShoppingListFactory, ShoppingListRepositoryPouchDB } from 'ibm-shopping-list-model';
 import PouchDB from 'pouchdb';
 import PouchDBFind from 'pouchdb-find';
-import Credentials from './secret';
 
 PouchDB.plugin(PouchDBFind);
 const localDB = new PouchDB('shopping_list_react');
-const remoteDB = new PouchDB(Credentials.cloudant_url);
+let remoteDB = undefined;
+try {
+  let Credentials = require('./secret');
+  if (Credentials.default.cloudant_url) {
+    remoteDB = new PouchDB(Credentials.default.cloudant_url);
+  }
+}
+catch (ex) {
+  console.log('secret.js file missing; disabling remote sync.')
+}
 const shoppingListFactory = new ShoppingListFactory();
 const shoppingListRepository = new ShoppingListRepositoryPouchDB(localDB);
 
