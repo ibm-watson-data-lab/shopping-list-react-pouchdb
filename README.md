@@ -42,60 +42,53 @@ When the reader has completed this Code Pattern, they will understand how to:
 To see this app in action without installing anything, simply visit https://ibm-watson-data-lab.github.io/shopping-list-react-pouchdb in a web browser or on a mobile device.
 
 # Steps (UPDATE AS NEEDED)
+
 * [Deploy to IBM Cloud](#deploy-to-bluemix) **OR** [Run locally](#run-locally)
 * [Database and replication setup](#database-and-replication-setup)
 
 ## Deploy to IBM Cloud (UPDATE AS NEEDED)
-<!--Update the repo and tracking id-->
-[![Deploy to IBM Cloud](https://metrics-tracker.mybluemix.net/stats/5c5df69e10058d49cdc1f4d2fc63ce31/button.svg)](https://bluemix.net/deploy?repository=https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb)
+
+[![Deploy to IBM Cloud](https://metrics-tracker.mybluemix.net/stats/5c5df69e10058d49cdc1f4d2fc63ce31/button.svg)](https://bluemix.net/deploy?repository=https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb)
 
 1. Press the above ``Deploy to IBM Cloud`` button and then click on ``Deploy``.
 
 1. In Toolchains, click on Delivery Pipeline to watch while the app is deployed. Once deployed, the app can be viewed by clicking `View app`.
 
-1. To see the app and services created and configured for this code pattern, use the IBM Cloud dashboard. The app is named [app-name] with a unique suffix. The following services are created and easily identified by the [chosen prefix] prefix:
-    * prefix-Service1
-    * prefix-Service2
+1. To see the app and services created and configured for this code pattern, use the IBM Cloud dashboard. The app is named `shopping-list-react-pouchdb` with a unique suffix. The following services are created and easily identified by the `sljsp` prefix:
 
-## Run locally (UPDATE AS NEEDED)
+    * sljsp-CloudantNoSQLDB
+
+## Run locally
+
 > NOTE: These steps are only needed when running locally instead of using the ``Deploy to IBM Cloud`` button.
-
-<!-- there are MANY updates necessary here, just screenshots where appropriate -->
 
 1. [Clone the repo](#1-clone-the-repo)
 1. [Install the prerequisites](#2-install-the-prerequisites)
 1. [Run the server](#3-run-the-server)
 1. [Create a Cloudant or CouchDB service](#4-create-a-cloudant-or-couchdb-service)
 
-### 1. Clone the repo (UPDATE AS NEEDED)
+### 1. Clone the repo
 
-Clone the `shopping-list-polymer-pouchdb` locally. In a terminal, run:
+Clone the `shopping-list-react-pouchdb` locally. In a terminal, run:
 
 ```
-$ git clone https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb
+$ git clone https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb
 ```
 
-### 2. Install the prerequisites (UPDATE AS NEEDED)
+### 2. Install the prerequisites 
 
-First, install [Polymer CLI](https://github.com/Polymer/polymer-cli) using [npm](https://www.npmjs.com/) (we assume you have pre-installed [Node.js](https://nodejs.org/)):
+First, install the dependencies (we assume you have pre-installed [Node.js](https://nodejs.org/)):
 
-    npm install --global polymer-cli
+    cd shopping-list-react-pouchdb
+    npm install
 
-Second, install [Bower](https://bower.io/) using [npm](https://www.npmjs.com):
+### 3. Run the server
 
-    npm install --global bower
+This command serves the app at `http://127.0.0.1:3000` and provides basic URL routing for the app:
 
-Third, install the [Bower npm resolver](https://github.com/mjeanroy/bower-npm-resolver):
+    npm start
 
-    npm install --global bower-npm-resolver
-
-### 3. Run the server (UPDATE AS NEEDED)
-
-This command serves the app at `http://127.0.0.1:8081` and provides basic URL routing for the app:
-
-    polymer serve
-
-### 4. Create a Cloudant or CouchDB service (UPDATE AS NEEDED)
+### 4. Create a Cloudant or CouchDB service
 
 PouchDB can synchronize with CouchDB and compatible servers. To run and test locally, you can install CouchDB. Alternatively, you can use a hosted Cloudant NoSQL DB service for your remote DB.
 

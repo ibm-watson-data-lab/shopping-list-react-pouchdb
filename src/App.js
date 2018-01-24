@@ -23,6 +23,10 @@ import PouchDB from 'pouchdb';
 import ShoppingLists from './components/ShoppingLists';
 import ShoppingList from './components/ShoppingList';
 
+if (process.env.VCAP_APP_PORT) {
+  process.env.PORT = process.env.VCAP_APP_PORT;
+}
+
 const muiTheme = getMuiTheme({
   palette: {
     textColor: grey800, 
