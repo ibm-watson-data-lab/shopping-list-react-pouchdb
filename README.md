@@ -1,8 +1,7 @@
-<!--Put badges at the very top -->
-<!--change the repos -->
-<!--change the tracking number -->
-[![Build Status](https://travis-ci.org/IBM/watson-banking-chatbot.svg?branch=master)](https://travis-ci.org/IBM/watson-banking-chatbot)  (UPDATE AS NEEDED)
-![IBM Cloud Deployments](https://metrics-tracker.mybluemix.net/stats/527357940ca5e1027fbf945add3b15c4/badge.svg) (UPDATE AS NEEDED)
+<!-- badges -->
+[![Build Status](https://travis-ci.org/ibm-watson-data-lab/shopping-list-react-pouchdb.svg?branch=master)](https://travis-ci.org/ibm-watson-data-lab/shopping-list-react-pouchdb)
+![IBM Cloud Deployments](https://metrics-tracker.mybluemix.net/stats/3490d3ff2913824363808c07a6645ab5/badge.svg)
+
 
 <!-- fill in the blanks -->
 
