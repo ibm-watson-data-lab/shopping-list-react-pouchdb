@@ -57,59 +57,57 @@ To see this app in action without installing anything, simply visit https://ibm-
     * prefix-Service1
     * prefix-Service2
 
-## Run locally (UPDATE AS NEEDED)
+## Run locally
 > NOTE: These steps are only needed when running locally instead of using the ``Deploy to IBM Cloud`` button.
 
-<!-- there are MANY updates necessary here, just screenshots where appropriate -->
-
 1. [Clone the repo](#1-clone-the-repo)
-1. [Install the prerequisites](#2-install-the-prerequisites)
-1. [Run the server](#3-run-the-server)
+1. [Install the dependencies](#2-install-the-dependencies)
+1. [Run the app](#3-run-the-app)
 1. [Create a Cloudant or CouchDB service](#4-create-a-cloudant-or-couchdb-service)
 
-### 1. Clone the repo (UPDATE AS NEEDED)
+### 1. Clone the repo
 
-Clone the `shopping-list-polymer-pouchdb` locally. In a terminal, run:
+Clone the `shopping-list-react-pouchdb` locally. In a terminal, run:
 
 ```
-$ git clone https://github.com/ibm-watson-data-lab/shopping-list-polymer-pouchdb
+$ git clone https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb
 ```
 
-### 2. Install the prerequisites (UPDATE AS NEEDED)
+### 2. Install the dependencies
 
-First, install [Polymer CLI](https://github.com/Polymer/polymer-cli) using [npm](https://www.npmjs.com/) (we assume you have pre-installed [Node.js](https://nodejs.org/)):
+To install the dependencies, run the command:
 
-    npm install --global polymer-cli
+    npm install
 
-Second, install [Bower](https://bower.io/) using [npm](https://www.npmjs.com):
+### 3. Run the app
 
-    npm install --global bower
+This command starts the app:
 
-Third, install the [Bower npm resolver](https://github.com/mjeanroy/bower-npm-resolver):
+    npm start
 
-    npm install --global bower-npm-resolver
-
-### 3. Run the server (UPDATE AS NEEDED)
-
-This command serves the app at `http://127.0.0.1:8081` and provides basic URL routing for the app:
-
-    polymer serve
-
-### 4. Create a Cloudant or CouchDB service (UPDATE AS NEEDED)
+### 4. Create a Cloudant or CouchDB service
 
 PouchDB can synchronize with CouchDB and compatible servers. To run and test locally, you can install CouchDB. Alternatively, you can use a hosted Cloudant NoSQL DB service for your remote DB.
 
-#### Installing Apache CouchDB (UPDATE AS NEEDED)
+#### Installing Apache CouchDB
 
 [Install CouchDB 2.1](http://docs.couchdb.org/en/2.1.0/install/index.html). Instructions are available for installing CouchDB 2.1 on Unix-like systems, on Windows, on Mac OS X, on FreeBSD, and via other methods.
 
 Configure CouchDB for a [single-node setup](http://docs.couchdb.org/en/2.1.0/install/setup.html#single-node-setup), as opposed to a cluster setup. Once you have finished setting up CouchDB, you should be able to access CouchDB at `http://127.0.0.1:5984/`. Ensure that CouchDB is running and take note of your admin username and password.
 
-#### Creating a Cloudant NoSQL DB service (UPDATE AS NEEDED)
+#### Creating a Cloudant NoSQL DB service
 
-Sign up for an [IBM Cloud](https://console.ng.bluemix.net/) account, if you do not already have one.
+To provision a managed Cloudant NoSQL DB
 
-Once you are logged in to IBM Cloud, create a new Cloudant instance on the [Cloudant NoSQL DB IBM Cloud Catalog](https://console.ng.bluemix.net/catalog/services/cloudant-nosql-db) page. This should take you to a page representing the newly-created service instance. Click the "Service credentials" link. You should have one set of service credentials listed. Click "View credentials" which should show you a JSON object containing your service credentials. Copy the value for the `url` key to your clipboard (the value will be in the form of `https://username:password@uniqueid-bluemix.cloudant.com`).
+* Log in to [IBM Cloud](https://console.ng.bluemix.net/).
+   > Sign up for an account, if you do not already have one.
+* [Provision a Cloudant NoSQL DB _Lite_ plan instance](https://console.bluemix.net/catalog/services/cloudant-nosql-db), which is free.
+  > If desired, you can also re-use an existing Cloudant NoSQL DB service instance. (Open the [**Data & Analytics**  resources dashboard](https://console.bluemix.net/dashboard/data) to see a list of pre-provisioned instances that you have access to.) 
+ * Open the **Service credentials** tab.
+* Add new credentials for this service instance if no credentials have been defined yet.
+* View the credentials and note the value of the **url** property, which has the following format: `https://username:password@username-bluemix.cloudant.com`.
+
+Tip: Select the **Manage** tab and click **Launch** to open the Cloudant dashboard and manage the service instance.
 
 ## Database and replication setup (UPDATE AS NEEDED)
 1. [Create the remote database](#1-create-the-remote-database)
