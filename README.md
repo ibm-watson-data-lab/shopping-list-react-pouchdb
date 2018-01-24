@@ -161,13 +161,13 @@ When you go online and have the database and CORS enabled and the Replication Ta
 
 ## Deploying to GitHub Pages (UPDATE AS NEEDED)
 
-# Privacy Notice (UPDATE AS NEEDED)
+# Privacy Notice
 
 Refer to https://github.com/IBM/metrics-collector-service#privacy-notice.
 
-## Disabling Deployment Tracking (UPDATE AS NEEDED)
+## Disabling Deployment Tracking
 
-To disable tracking, simply remove ``require('metrics-tracker-client').track();`` from the ``app.js`` file in the top level directory.
+To disable tracking, simply remove `node log &&` from the `package.json` file.
 
 <!--Include any relevant links-->
 
