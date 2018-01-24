@@ -18,7 +18,7 @@ const iconButtonElement = (
 );
 
 class ShoppingLists extends React.Component {
-  /* all state actions are for handling the renaming dialog */
+  // all state actions are for handling the renaming dialog
   state = {
     open: false,
     activeListId: '', 
@@ -43,6 +43,11 @@ class ShoppingLists extends React.Component {
     this.setState({newName: e.target.value});
   }
 
+  /**
+   * Show the UI. The most important thing happening here is that the UI elements 
+   * make use of the functions passed into the component as props to do all the heavy 
+   * lifting of manipulating shopping lists, so this component is pure UI.
+   */
   render() {
     /* rename dialog stuff */
     const actions = [
@@ -78,7 +83,6 @@ class ShoppingLists extends React.Component {
               onClick={()=>this.props.deleteListFunc(list._id)}/>
           </IconMenu>
         } />
-      {/* <hr className={'shoppinglistcarddivider'}/> */}
       <CardActions>
         <Checkbox label={(this.props.checkedCounts.get(list._id) || 0)+' of '+(this.props.totalCounts.get(list._id) || 0)+' items checked'}
           checked={list.checked} 
@@ -95,12 +99,10 @@ class ShoppingLists extends React.Component {
         modal={false}
         open={this.state.open}
         onRequestClose={this.handleClose}>
-        {/* <form onSubmit={this.handleSubmit}> */}
           <TextField className="form-control" type="text" id="textfield-item-rename"
           defaultValue={this.state.oldName} 
           onChange={this.updateName} 
           fullWidth={true} />
-        {/* </form> */}
       </Dialog>
     </div>
   )

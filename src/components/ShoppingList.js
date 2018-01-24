@@ -43,6 +43,11 @@ class ShoppingList extends React.Component {
     this.setState({newName: e.target.value});
   }
 
+  /**
+   * Show the UI. The most important thing happening here is that the UI elements 
+   * make use of the functions passed into the component as props to do all the heavy 
+   * lifting of manipulating shopping list items, so this component is pure UI.
+   */
   render() {
     /* rename dialog stuff */
     const actions = [
