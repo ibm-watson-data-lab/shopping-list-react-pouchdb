@@ -1,11 +1,12 @@
 import React from 'react';
-// import { ShoppingListFactory, ShoppingListRepositoryPouchDB } from 'ibm-shopping-list-model';
 import {List} from 'immutable';
-import ShoppingLists from './components/ShoppingLists';
-import ShoppingList from './components/ShoppingList';
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
@@ -13,10 +14,14 @@ import Paper from 'material-ui/Paper';
 import {Card, CardTitle} from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import KeyboardBackspace from 'material-ui/svg-icons/hardware/keyboard-backspace';
+import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import {grey800, blueGrey500, pinkA100, white} from 'material-ui/styles/colors';
 
-const NOLISTMSG = "Click the + sign above to create a shopping list."
-const NOITEMSMSG = "Click the + sign above to create a shopping list item."
+import PouchDB from 'pouchdb';
+// import PouchDBFind from 'pouchdb-find';
+
+import ShoppingLists from './components/ShoppingLists';
+import ShoppingList from './components/ShoppingList';
 
 const muiTheme = getMuiTheme({
   palette: {
@@ -34,9 +39,14 @@ const appBarStyle = {
   // color: white
 };
 
+const NOLISTMSG = "Click the + sign above to create a shopping list."
+const NOITEMSMSG = "Click the + sign above to create a shopping list item."
+
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.remoteDB = props.remoteDB;
+
     this.state = {
       shoppingList: null, 
       shoppingLists: [], 
@@ -45,21 +55,27 @@ class App extends React.Component {
       shoppingListItems: null, 
       adding: false, 
       view: 'lists',
-      newName: ''
+      newName: '',
+      settingsOpen: false,
     }
   }
 
   componentDidMount = () => {
       this.getShoppingLists();
-      this.props.localDB.sync(this.props.remoteDB, {live: true, retry: true})
-        .on('change', change => {
-          console.log('something changed!');
-          this.getPouchDocs();
-        })
-        // .on('paused', info => console.log('replication paused.'))
-        // .on('active', info => console.log('replication resumed.'))
-        .on('error', err => console.log('uh oh! an error occured.'));
+      if (this.remoteDB) {
+        this.syncToRemote();
+      }
   }
+
+  syncToRemote = () => {
+    this.props.localDB.sync(this.remoteDB, {live: true, retry: true})
+    .on('change', change => {
+      this.getPouchDocs();
+    })
+    // .on('paused', info => console.log('replication paused.'))
+    // .on('active', info => console.log('replication resumed.'))
+    .on('error', err => console.log('uh oh! an error occured while synching.'));
+}
 
   getShoppingLists = () => {
     let checkedCount = List();
@@ -280,7 +296,50 @@ class App extends React.Component {
     if (this.state.view === 'items') 
       return (<IconButton touch={true} onClick={this.getShoppingLists}><KeyboardBackspace /></IconButton>)
     else 
-      return <span/>
+      return (<IconButton touch={true} onClick={this.handleOpenSettings}><SettingsIcon /></IconButton>)
+  }
+
+  handleOpenSettings = () => {
+    this.setState({settingsOpen: true});
+  }
+
+  handleCloseSettings = () => {
+    this.setState({settingsOpen: false});
+  }
+
+  handleSubmitSettings = () => {
+    try {
+      this.remoteDB = new PouchDB(this.tempdburl);
+      this.syncToRemote();
+    }
+    catch (ex) {
+      console.log('Error setting remote database: ');
+      console.log(ex);
+    }
+    this.handleCloseSettings();
+  }
+
+  showSettingsDialog = () => {
+    const actions = [
+        <FlatButton label="Cancel" primary={false} keyboardFocused={true} onClick={this.handleCloseSettings} />,
+        <FlatButton label="Submit" primary={true} onClick={this.handleSubmitSettings} />,
+    ];
+
+    return (
+      <Dialog 
+        title="Shopping List Settings" 
+        actions={actions} 
+        modal={false} 
+        open={this.state.settingsOpen} 
+        onRequestClose={this.handleCloseSettings}
+      >
+      <p>Enter a fully qualified URL (including username and password) to a remote IBM Cloudant, Apache CouchDB, or PouchDB database to sync your shopping list.</p>
+      <TextField id="db-url" 
+        floatingLabelText="https://username:password@localhost:5984/database" 
+        fullWidth={true} 
+        onChange={ e => {this.tempdburl = e.target.value} } />
+      </Dialog>
+    )
   }
 
   renderAddButton = () => {
@@ -305,6 +364,7 @@ class App extends React.Component {
           {this.state.adding ? this.renderNewNameUI() : <span/>}
           {this.state.view === 'lists' ? this.renderShoppingLists() : this.renderShoppingListItems()}
         </div>
+        {this.state.settingsOpen ? this.showSettingsDialog() : <span/>}
       </div>
       </MuiThemeProvider>
     )
