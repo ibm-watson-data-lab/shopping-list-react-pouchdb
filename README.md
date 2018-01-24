@@ -61,10 +61,9 @@ To see this app in action without installing anything, simply visit https://ibm-
 > NOTE: These steps are only needed when running locally instead of using the ``Deploy to IBM Cloud`` button.
 
 1. [Clone the repo](#1-clone-the-repo)
-1. [Install the prerequisites](#2-install-the-prerequisites)
-1. [Build the project](#3-build-the-project)
-1. [Run the server](#4-run-the-server)
-1. [Create a Cloudant or CouchDB service](#5-create-a-cloudant-or-couchdb-service)
+1. [Install the dependencies](#2-install-the-dependencies)
+1. [Run the app](#3-run-the-app)
+1. [Create a Cloudant or CouchDB service](#4-create-a-cloudant-or-couchdb-service)
 
 ### 1. Clone the repo
 
@@ -74,25 +73,19 @@ Clone the `shopping-list-react-pouchdb` locally. In a terminal, run:
 $ git clone https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb
 ```
 
-### 2. Install the prerequisites
+### 2. Install the dependencies
 
-Install the dependencies:
+To install the dependencies, run the command:
 
     npm install
 
-### 3. Build the project
-
-To build the project, run:
-
-    npm run build
-
-### 4. Run the server
+### 3. Run the app
 
 This command starts the app:
 
-    npm run start
+    npm start
 
-### 5. Create a Cloudant or CouchDB service
+### 4. Create a Cloudant or CouchDB service
 
 PouchDB can synchronize with CouchDB and compatible servers. To run and test locally, you can install CouchDB. Alternatively, you can use a hosted Cloudant NoSQL DB service for your remote DB.
 
