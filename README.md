@@ -162,7 +162,7 @@ Refer to https://github.com/IBM/metrics-collector-service#privacy-notice.
 
 ## Disabling Deployment Tracking
 
-To disable tracking, simply remove `require('metrics-tracker-client').track()` from the `App.js` file in the `src` directory.
+To disable tracking, simply remove `node log &&` from the `package.json` file.
 
 <!--Include any relevant links-->
 
