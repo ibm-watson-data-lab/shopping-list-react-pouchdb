@@ -4,9 +4,9 @@
   "private": true,
   "homepage": "https://ibm-watson-data-lab.github.io/shopping-list-react-pouchdb/",
   "dependencies": {
-    "cuid": "^1.3.8",
+    "cuid": "^2.0.2",
     "gh-pages": "^1.0.0",
-    "ibm-shopping-list-model": "^0.2.3",
+    "ibm-shopping-list-model": "^0.3.0",
     "immutable": "^3.8.1",
     "material-ui": "^0.19.1",
     "pouchdb": "^6.3.4",
@@ -20,8 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "predeploy": "npm run build", 
-    "deploy": "gh-pages -d build", 
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
   }
 }

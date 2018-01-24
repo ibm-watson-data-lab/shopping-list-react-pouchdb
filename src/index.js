@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 import registerServiceWorker from './registerServiceWorker';
-// import { ShoppingListFactory, ShoppingListRepositoryPouchDB } from 'ibm-shopping-list-model';
-import { ShoppingListFactory, ShoppingListRepositoryPouchDB } from 'ibm-shopping-list-model/dist/bundle.js';
+import { ShoppingListFactory, ShoppingListRepositoryPouchDB } from 'ibm-shopping-list-model';
+// import { ShoppingListFactory, ShoppingListRepositoryPouchDB } from 'ibm-shopping-list-model/dist/bundle.js';
 import PouchDB from 'pouchdb';
 import PouchDBFind from 'pouchdb-find';
 
