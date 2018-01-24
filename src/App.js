@@ -23,8 +23,6 @@ import PouchDB from 'pouchdb';
 import ShoppingLists from './components/ShoppingLists';
 import ShoppingList from './components/ShoppingList';
 
-require('metrics-tracker-client').track()
-
 const muiTheme = getMuiTheme({
   palette: {
     textColor: grey800, 
