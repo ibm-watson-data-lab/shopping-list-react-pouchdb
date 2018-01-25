@@ -28,7 +28,6 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 * [Cloudant NoSQL DB](https://console.ng.bluemix.net/catalog/services/cloudant-nosql-db): A fully managed data layer designed for modern web and mobile applications that leverages a flexible JSON schema.
 
-
 ## Featured technologies
 
 * [PouchDB](https://pouchdb.com/) - an in-browser database that can replicate to and from a remote Apache CouchDB or IBM Cloudant database.
@@ -54,9 +53,7 @@ To see this app in action without installing anything, simply visit https://ibm-
 1. In Toolchains, click on Delivery Pipeline to watch while the app is deployed. Once deployed, the app can be viewed by clicking `View app`.
 
 1. To see the app and services created and configured for this code pattern, use the IBM Cloud dashboard. The app is named `shopping-list-react-pouchdb` with a unique suffix. The following services are created and easily identified by the `sljsp` prefix:
-
-
-  * sljsp-CloudantNoSQLDB
+   * sljsp-CloudantNoSQLDB
 
 ## Run locally
 
@@ -73,6 +70,7 @@ Clone the `shopping-list-react-pouchdb` locally. In a terminal, run:
 
 ```
 $ git clone https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb
+$ cd shopping-list-react-pouchdb
 ```
 
 ### 2. Install the dependencies
@@ -111,33 +109,39 @@ To provision a managed Cloudant NoSQL DB
 
 Tip: Select the **Manage** tab and click **Launch** to open the Cloudant dashboard and manage the service instance.
 
-## Database and replication setup (UPDATE AS NEEDED)
+## Database and replication setup
 1. [Create the remote database](#1-create-the-remote-database)
 1. [Enable CORS](#2-enable-cors)
 1. [Set the replication target](#3-set-the-replication-target)
 
-### 1. Create the remote database (UPDATE AS NEEDED)
+### 1. Create the remote database
 
-Use your Cloudant or CouchDB dashboard to create a database. Select the Databases icon on the left and then use the `Create Database` button to create the "shopping-list" database.
+* Use the Cloudant or CouchDB dashboard to create a database.
+
+* Select the Databases tab on the left and then use the `Create Database` button to create the "shopping-list" database.
 The Shopping List app can be used locally before the database exists, but cannot sync
 until the remote database is completed.
 
-![](doc/source/images/create_db.png)
+  ![Create shopping-list database](doc/source/images/create_db.png)
 
-### 2. Enable CORS (UPDATE AS NEEDED)
+### 2. Enable CORS
 
-Cross-Origin Resource Sharing (CORS) needs to be enabled. Use your Cloudant or CouchDB dashboard to enable it. The CORS options are under the account settings or config depending on your version. Enable CORS and restrict the domain as needed for security.
+* Open the Cloudant or CouchDB dashboard to enable Cross-Origin Resource Sharing (CORS).  
 
-![](doc/source/images/enable_cors.png)
+* Select the Account Settings (or config) tab and open the **CORS** tab.
 
-### 3. Set the replication target (UPDATE AS NEEDED)
+* Enable CORS and restrict the domain as needed for security.
 
-Run the Shopping List app and use the `Replicator` form to enter your Database URL.
-If you use the IBM Cloud Cloudant URL taken from the service credentials as described above, the URL includes user and password GUIDs.
+  ![Enable CORS](doc/source/images/enable_cors.png)
+
+### 3. Set the replication target
+
+Run the Shopping List app and use the *Settings* form to enter your database URL.
+If you use the IBM Cloud Cloudant URL taken from the service credentials as described above, the URL includes user name and password.
 
 Add `/shopping-list` to the URL to connect to the database that you created.
 
-![](doc/source/images/replicator.png)
+![Configure replication in app](doc/source/images/replicator.png)
 
 <!--Edit as appropriate, update screenshot-->
 # Using the app
@@ -149,8 +153,6 @@ When you have not configured your Replication Target or when you are offline, th
 When you go online and have the database and CORS enabled and the Replication Target is set, the shopping lists will sync. You will then be able to use both lists from either browser.
 
 ![](doc/source/images/shopping_lists.png)
-
-## Running the app (UPDATE AS NEEDED)
 
 ## Running the tests (UPDATE AS NEEDED)
 
