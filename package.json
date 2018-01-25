@@ -14,7 +14,7 @@
   "dependencies": {
     "cuid": "^2.0.2",
     "gh-pages": "^1.0.0",
-    "ibm-shopping-list-model": "^0.3.0",
+    "ibm-shopping-list-model": "^0.4.0",
     "immutable": "^3.8.1",
     "material-ui": "^0.19.1",
     "metrics-tracker-client": "^0.2.3",
