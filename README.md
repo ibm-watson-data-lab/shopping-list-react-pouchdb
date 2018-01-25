@@ -136,22 +136,27 @@ Add `/shopping-list` to the URL to connect to the database that you created.
 
 ![](doc/source/images/replicator.png)
 
-<!--Edit as appropriate, update screenshot-->
-# Using the app (UPDATE AS NEEDED)
+# Using the app 
 
-The app allows you to create a shopping list by clicking on the plus sign. Click on the list to see its items. Then, you can add items to the list by clicking the plus sign. There is a checkbox to allow you to mark the items complete as you buy load up your cart.
+The app allows you to create a shopping list by clicking on the plus sign. Click on the `...` icon in the list and choose "Open" to see its items. Then, you can add items to the list by clicking the plus sign. There is a checkbox to allow you to mark the items complete as you buy load up your cart.
 
 When you have not configured your Replication Target or when you are offline, the lists will not sync. One good way to test this is to run two browsers. You can use Chrome and Firefox and have different lists in each.
 
 When you go online and have the database and CORS enabled and the Replication Target is set, the shopping lists will sync. You will then be able to use both lists from either browser.
 
-![](doc/source/images/shopping_lists.png)
+![screenshot - creating a list](doc/source/images/screenshot1.png)
 
-## Running the app (UPDATE AS NEEDED)
+![screenshot - adding items to a list](doc/source/images/screenshot2.png)
 
-## Running the tests (UPDATE AS NEEDED)
+## Running the tests 
 
-## Deploying to GitHub Pages (UPDATE AS NEEDED)
+This repository uses the [react-scripts test runner](https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/template/README.md#running-tests). Our continuous integration will run the tests when you push to GitHub. To test your code on your machine, simply run `npm test`.
+
+This project does not, at present, have any automated tests. Tests can be added to the `src/__tests__` directory. If you'd like to contribute some then please raise an issue and submit a pull-request - we'd be very happy to add them!
+
+## Deploying to GitHub Pages
+
+The shopping list can be deployed to and accessed from GitHub Pages. See https://ibm-watson-data-lab.github.io/shopping-list-react-pouchdb for a live demo.
 
 # Privacy Notice
 
