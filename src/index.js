@@ -3,10 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 import registerServiceWorker from './registerServiceWorker';
-// when building a production bundle.js, COMMENT out the line below
 import { ShoppingListFactory, ShoppingListRepositoryPouchDB } from 'ibm-shopping-list-model';
-// when building a production bundle.js, UN-COMMENT the line below
-// import { ShoppingListFactory, ShoppingListRepositoryPouchDB } from 'ibm-shopping-list-model/dist/bundle.js';
 import PouchDB from 'pouchdb';
 import PouchDBFind from 'pouchdb-find';
 

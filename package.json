@@ -1,12 +1,20 @@
 {
   "name": "shopping-list-react-pouchdb",
   "version": "0.1.0",
-  "private": true,
   "homepage": "https://ibm-watson-data-lab.github.io/shopping-list-react-pouchdb/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb.git"
+  },
+  "author": "Raj Singh",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb/issues"
+  },
   "dependencies": {
     "cuid": "^2.0.2",
     "gh-pages": "^1.0.0",
-    "ibm-shopping-list-model": "^0.3.0",
+    "ibm-shopping-list-model": "^0.4.0",
     "immutable": "^3.8.1",
     "material-ui": "^0.19.1",
     "metrics-tracker-client": "^0.2.3",
@@ -24,5 +32,9 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "eject": "react-scripts eject"
+  },
+  "engines": {
+    "node": "8.9.4",
+    "npm": "5.6.0"
   }
 }
