@@ -40,14 +40,14 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 To see this app in action without installing anything, simply visit https://ibm-watson-data-lab.github.io/shopping-list-react-pouchdb in a web browser or on a mobile device.
 
-# Steps (UPDATE AS NEEDED)
+# Steps
 
 * [Deploy to IBM Cloud](#deploy-to-bluemix) **OR** [Run locally](#run-locally)
 * [Database and replication setup](#database-and-replication-setup)
 
-## Deploy to IBM Cloud (UPDATE AS NEEDED)
+## Deploy to IBM Cloud
 
-[![Deploy to IBM Cloud](https://metrics-tracker.mybluemix.net/stats/5c5df69e10058d49cdc1f4d2fc63ce31/button.svg)](https://bluemix.net/deploy?repository=https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb)
+[![Deploy to IBM Cloud](https://metrics-tracker.mybluemix.net/stats/3490d3ff2913824363808c07a6645ab5/button.svg)](https://bluemix.net/deploy?repository=https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb)
 
 1. Press the above ``Deploy to IBM Cloud`` button and then click on ``Deploy``.
 
@@ -75,25 +75,17 @@ Clone the `shopping-list-react-pouchdb` locally. In a terminal, run:
 $ git clone https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb
 ```
 
-
-### 3. Run the server
-
-This command serves the app at `http://127.0.0.1:3000` and provides basic URL routing for the app:
-
-    npm start
-
-=======
 ### 2. Install the dependencies
 
 To install the dependencies, run the command:
 
-    npm install
+    $ npm install
 
 ### 3. Run the app
 
-This command starts the app:
+This command serves the app at `http://127.0.0.1:3000` and provides basic URL routing for the app:
 
-    npm start
+    $ npm start
 
 ### 4. Create a Cloudant or CouchDB service
 
@@ -148,7 +140,7 @@ Add `/shopping-list` to the URL to connect to the database that you created.
 ![](doc/source/images/replicator.png)
 
 <!--Edit as appropriate, update screenshot-->
-# Using the app (UPDATE AS NEEDED)
+# Using the app
 
 The app allows you to create a shopping list by clicking on the plus sign. Click on the list to see its items. Then, you can add items to the list by clicking the plus sign. There is a checkbox to allow you to mark the items complete as you buy load up your cart.
 
