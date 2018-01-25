@@ -21,11 +21,6 @@ import PouchDB from 'pouchdb';
 import ShoppingLists from './components/ShoppingLists';
 import ShoppingList from './components/ShoppingList';
 
-
-if (process.env.VCAP_APP_PORT) {
-  process.env.PORT = process.env.VCAP_APP_PORT;
-}
-
 // create a custom color scheme for Material-UI
 const muiTheme = getMuiTheme({
   palette: {
