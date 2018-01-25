@@ -119,29 +119,37 @@ To provision a managed Cloudant NoSQL DB
 
 Tip: Select the **Manage** tab and click **Launch** to open the Cloudant dashboard and manage the service instance.
 
-## Database and replication setup (UPDATE AS NEEDED)
+## Database and replication setup 
+
 1. [Create the remote database](#1-create-the-remote-database)
 1. [Enable CORS](#2-enable-cors)
 1. [Set the replication target](#3-set-the-replication-target)
 
-### 1. Create the remote database (UPDATE AS NEEDED)
+### 1. Create the remote database 
 
-Use your Cloudant or CouchDB dashboard to create a database. Select the Databases icon on the left and then use the `Create Database` button to create the "shopping-list" database.
+* Use the Cloudant or CouchDB dashboard to create a database.
+
+* Select the Databases tab on the left and then use the `Create Database` button to create the "shopping-list" database.
+
 The Shopping List app can be used locally before the database exists, but cannot sync
 until the remote database is completed.
 
 ![](doc/source/images/create_db.png)
 
-### 2. Enable CORS (UPDATE AS NEEDED)
+### 2. Enable CORS
 
-Cross-Origin Resource Sharing (CORS) needs to be enabled. Use your Cloudant or CouchDB dashboard to enable it. The CORS options are under the account settings or config depending on your version. Enable CORS and restrict the domain as needed for security.
+* Open the Cloudant or CouchDB dashboard to enable Cross-Origin Resource Sharing (CORS).  
+
+* Select the Account Settings (or config) tab and open the **CORS** tab.
+
+* Enable CORS and restrict the domain as needed for security.
 
 ![](doc/source/images/enable_cors.png)
 
-### 3. Set the replication target (UPDATE AS NEEDED)
+### 3. Set the replication target
 
-Run the Shopping List app and use the `Replicator` form to enter your Database URL.
-If you use the IBM Cloud Cloudant URL taken from the service credentials as described above, the URL includes user and password GUIDs.
+Run the Shopping List app and use the *Settings* form to enter your database URL.
+If you use the IBM Cloud Cloudant URL taken from the service credentials as described above, the URL includes user name and password.
 
 Add `/shopping-list` to the URL to connect to the database that you created.
 
