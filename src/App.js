@@ -371,7 +371,11 @@ class App extends React.Component {
     if (this.state.view === 'items') 
       return (<IconButton touch={true} onClick={this.getShoppingLists}><KeyboardBackspace /></IconButton>)
     else 
-      return (<IconButton touch={true} onClick={this.handleOpenSettings}><SettingsIcon /></IconButton>)
+      return (<img src="cart_sm.png" width="48px" />)
+  }
+
+  renderSettingsButton = () => {
+    return (<IconButton touch={true} onClick={this.handleOpenSettings}><SettingsIcon /></IconButton>);
   }
 
   /**
@@ -429,19 +433,11 @@ class App extends React.Component {
     )
   }
 
-  renderAddButton = () => {
-    return (
-    <FloatingActionButton onClick={this.displayAddingUI} mini={true}>
-      <ContentAdd />
-    </FloatingActionButton>
-    );
-  }
-
   /**
    * Show the UI
    */
   render() {
-    let screenname = "Shopping Lists";
+    let screenname = "Shopping List";
     if (this.state.view === 'items') screenname = this.state.shoppingList.title;
     return (
       <MuiThemeProvider muiTheme={muiTheme}>
@@ -449,12 +445,18 @@ class App extends React.Component {
         <AppBar title={screenname} 
                 iconElementLeft={this.renderBackButton()}
                 style={appBarStyle} 
-                iconElementRight={this.renderAddButton()} />
+                iconElementRight={this.renderSettingsButton()} />
         <div className={'listsanditems'} style={{margin:'8px'}}>
           {this.state.adding ? this.renderNewNameUI() : <span/>}
           {this.state.view === 'lists' ? this.renderShoppingLists() : this.renderShoppingListItems()}
         </div>
         {this.state.settingsOpen ? this.showSettingsDialog() : <span/>}
+        <FloatingActionButton 
+          onClick={this.displayAddingUI} 
+          mini={true}
+          style={{position: 'fixed', bottom:'25px', right:'25px'}}>
+          <ContentAdd />
+        </FloatingActionButton>
       </div>
       </MuiThemeProvider>
     )
