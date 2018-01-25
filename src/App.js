@@ -1,12 +1,11 @@
 import React from 'react';
 import {List} from 'immutable';
-
+// We're using Material Design React components from http://www.material-ui.com
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import TextField from 'material-ui/TextField';
@@ -18,15 +17,16 @@ import SettingsIcon from 'material-ui/svg-icons/action/settings';
 import {grey800, blueGrey500, pinkA100, white} from 'material-ui/styles/colors';
 
 import PouchDB from 'pouchdb';
-// import PouchDBFind from 'pouchdb-find';
 
 import ShoppingLists from './components/ShoppingLists';
 import ShoppingList from './components/ShoppingList';
+
 
 if (process.env.VCAP_APP_PORT) {
   process.env.PORT = process.env.VCAP_APP_PORT;
 }
 
+// create a custom color scheme for Material-UI
 const muiTheme = getMuiTheme({
   palette: {
     textColor: grey800, 
@@ -39,17 +39,20 @@ const muiTheme = getMuiTheme({
 const appBarStyle = {
   backgroundColor: blueGrey500, 
   width: "100%", 
-  // padding: "8px", 
-  // color: white
 };
 
 const NOLISTMSG = "Click the + sign above to create a shopping list."
 const NOITEMSMSG = "Click the + sign above to create a shopping list item."
 
+/** 
+ * This is the main React application
+ */
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.remoteDB = props.remoteDB;
+    // manage remoteDB here because user might change it via the UI
+    // but don't put it in state because changing the backend db doesn't require a re-render
+    this.remoteDB = props.remoteDB; 
 
     this.state = {
       shoppingList: null, 
@@ -64,6 +67,11 @@ class App extends React.Component {
     }
   }
 
+  /**
+   * Before this component shows the user anything, get the data from the local PouchDB
+   * 
+   * Then, if we were initialized with a remote DB, synchronize with it
+   */
   componentDidMount = () => {
       this.getShoppingLists();
       if (this.remoteDB) {
@@ -71,6 +79,9 @@ class App extends React.Component {
       }
   }
 
+  /**
+   * Synchronize local PouchDB with a remote CouchDB or Cloudant
+   */
   syncToRemote = () => {
     this.props.localDB.sync(this.remoteDB, {live: true, retry: true})
     .on('change', change => {
@@ -81,12 +92,15 @@ class App extends React.Component {
     .on('error', err => console.log('uh oh! an error occured while synching.'));
 }
 
+  /**
+   * From the local DB, load all the shopping lists and item counts and which are checked
+   */
   getShoppingLists = () => {
     let checkedCount = List();
     let totalCount = List();
     let lists = null;
     this.props.shoppingListRepository.find().then( foundLists => {
-      console.log('got Shopping Lists from PouchDB. count: '+foundLists.size);
+      console.log('GOT SHOPPING LISTS FROM POUCHDB. COUNT: '+foundLists.size);
       lists = foundLists;
       return foundLists;
     }).then( foundLists => {
@@ -117,6 +131,10 @@ class App extends React.Component {
     });
   }
 
+  /**
+   * Get a shopping list by id 
+   * @param {string} listid id of a shopping list
+   */
   openShoppingList = (listid) => {
     this.props.shoppingListRepository.get(listid).then( list => {
       return list;
@@ -131,6 +149,10 @@ class App extends React.Component {
     });
   }
 
+  /**
+   * Get the items in a shopping list
+   * @param {string} listid id of a shopping list
+   */
   getShoppingListItems = (listid) => {
     return this.props.shoppingListRepository.findItems({
       selector: {
@@ -140,6 +162,10 @@ class App extends React.Component {
     });
   }
 
+  /**
+   * Refresh the items in a shopping list
+   * @param {string} listid id of a shopping list
+   */
   refreshShoppingListItems = (listid) => {
     this.props.shoppingListRepository.findItems({
       selector: {
@@ -154,6 +180,11 @@ class App extends React.Component {
     });
   }
 
+  /**
+   * Change the name of an item
+   * @param {string} itemid id of an item
+   * @param {string} newname new name of the item
+   */
   renameShoppingListItem = (itemid, newname) => {
     console.log('IN renameShoppingListItem with id='+itemid+', name='+newname);
     this.props.shoppingListRepository.getItem(itemid).then(item => {
@@ -162,12 +193,20 @@ class App extends React.Component {
     }).then(this.refreshShoppingListItems(this.state.shoppingList._id));
   }
 
+  /**
+   * Delete an item
+   * @param {string} itemid id of an item
+   */
   deleteShoppingListItem = (itemid) => {
     this.props.shoppingListRepository.getItem(itemid).then(item => {
       return this.props.shoppingListRepository.deleteItem(item);
     }).then(this.refreshShoppingListItems(this.state.shoppingList._id));
   }
 
+  /**
+   * Check off or un-check an item
+   * @param {event} evt The click event on the UI element requesting to toggle state. It's id is the item id
+   */
   toggleItemCheck = (evt) => {
     let itemid = evt.target.dataset.id;
     this.props.shoppingListRepository.getItem(itemid).then(item => {
@@ -176,6 +215,10 @@ class App extends React.Component {
     }).then(this.refreshShoppingListItems(this.state.shoppingList._id));
   }
 
+  /**
+   * Check off all items in the shopping list
+   * @param {string} listid id of a shopping list
+   */
   checkAllListItems = (listid) => {
     let listcheck = true;
     this.getShoppingListItems(listid).then( items => {
@@ -204,6 +247,10 @@ class App extends React.Component {
     });
   }
 
+  /**
+   * Delete a shopping list
+   * @param {string} listid id of a shopping list
+   */
   deleteShoppingList = (listid) => {
     this.props.shoppingListRepository.get(listid).then(shoppingList => {
       shoppingList = shoppingList.set("_deleted", true);
@@ -213,6 +260,11 @@ class App extends React.Component {
     });
   }
 
+  /**
+   * Change the name of a shopping list
+   * @param {string} listid id of a shopping list
+   * @param {string} newname new name of the list
+   */
   renameShoppingList = (listid, newname) => {
     this.props.shoppingListRepository.get(listid).then(shoppingList => {
       shoppingList = shoppingList.set('title', newname);
@@ -220,6 +272,10 @@ class App extends React.Component {
     }).then(this.getShoppingLists);
   }
 
+  /**
+   * Create a new shopping list or item based on where the event came from
+   * @param {event} evt The click event on the UI element requesting to the action. Get the name from state and decide whether to add a list or an item based on the `state.view` 
+   */
   createNewShoppingListOrItem = (e) => {
     e.preventDefault();
     this.setState({adding: false});
@@ -245,14 +301,24 @@ class App extends React.Component {
     }
   }
 
-  updateName = (e) => {
-    this.setState({newName: e.target.value});
+  /**
+   * Set the new name the user has typed in state for pickup later by other functions
+   * @param {event} evt The change event on the UI element that let's user type a name
+   */
+  updateName = (evt) => {
+    this.setState({newName: evt.target.value});
   }
 
+  /**
+   * Tell the component we're in adding list or item mode
+   */
   displayAddingUI = () => {
     this.setState({adding: true});
   }
 
+  /**
+   * Show UI for typing in a new name
+   */
   renderNewNameUI = () => {
     return (
       <form onSubmit={this.createNewShoppingListOrItem} style={{marginTop:'12px'}}>
@@ -269,6 +335,9 @@ class App extends React.Component {
     );
   }
 
+  /**
+   * Show UI for shopping lists
+   */
   renderShoppingLists = () => {
     if (this.state.shoppingLists.length < 1) 
       return ( <Card style={{margin:"12px 0"}}><CardTitle title={NOLISTMSG} /></Card> );
@@ -284,6 +353,9 @@ class App extends React.Component {
     )
   }
 
+  /**
+   * Show UI for shopping list items
+   */
   renderShoppingListItems = () => {
     if (this.state.shoppingListItems.size < 1) 
       return ( <Card style={{margin:"12px 0"}}><CardTitle title={NOITEMSMSG} /></Card> );
@@ -296,6 +368,10 @@ class App extends React.Component {
     )
   }
 
+  /**
+   * If we're showing items from a shopping list, show a back button.  
+   * If we're showing shopping lists, show a settings button.
+   */
   renderBackButton = () => {
     if (this.state.view === 'items') 
       return (<IconButton touch={true} onClick={this.getShoppingLists}><KeyboardBackspace /></IconButton>)
@@ -303,14 +379,23 @@ class App extends React.Component {
       return (<IconButton touch={true} onClick={this.handleOpenSettings}><SettingsIcon /></IconButton>)
   }
 
+  /**
+   * Tell component we want to show settings dialog
+   */
   handleOpenSettings = () => {
     this.setState({settingsOpen: true});
   }
 
+  /**
+   * Tell component we want to hide settings dialog
+   */
   handleCloseSettings = () => {
     this.setState({settingsOpen: false});
   }
 
+  /**
+   * Right now the only setting is changing the remote DB, so do that then close the dialog
+   */
   handleSubmitSettings = () => {
     try {
       this.remoteDB = new PouchDB(this.tempdburl);
@@ -323,6 +408,9 @@ class App extends React.Component {
     this.handleCloseSettings();
   }
 
+  /**
+   * Show settings dialog UI
+   */
   showSettingsDialog = () => {
     const actions = [
         <FlatButton label="Cancel" primary={false} keyboardFocused={true} onClick={this.handleCloseSettings} />,
@@ -352,8 +440,11 @@ class App extends React.Component {
       <ContentAdd />
     </FloatingActionButton>
     );
-}
+  }
 
+  /**
+   * Show the UI
+   */
   render() {
     let screenname = "Shopping Lists";
     if (this.state.view === 'items') screenname = this.state.shoppingList.title;

@@ -17,6 +17,7 @@
     "ibm-shopping-list-model": "^0.3.0",
     "immutable": "^3.8.1",
     "material-ui": "^0.19.1",
+    "metrics-tracker-client": "^0.2.3",
     "pouchdb": "^6.3.4",
     "pouchdb-find": "^6.3.4",
     "prop-types": "^15.5.10",
@@ -25,7 +26,7 @@
     "react-scripts": "1.0.10"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "node log && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "predeploy": "npm run build",

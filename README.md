@@ -1,8 +1,7 @@
-<!--Put badges at the very top -->
-<!--change the repos -->
-<!--change the tracking number -->
-[![Build Status](https://travis-ci.org/IBM/watson-banking-chatbot.svg?branch=master)](https://travis-ci.org/IBM/watson-banking-chatbot)  (UPDATE AS NEEDED)
-![IBM Cloud Deployments](https://metrics-tracker.mybluemix.net/stats/527357940ca5e1027fbf945add3b15c4/badge.svg) (UPDATE AS NEEDED)
+<!-- badges -->
+[![Build Status](https://travis-ci.org/ibm-watson-data-lab/shopping-list-react-pouchdb.svg?branch=master)](https://travis-ci.org/ibm-watson-data-lab/shopping-list-react-pouchdb)
+![IBM Cloud Deployments](https://metrics-tracker.mybluemix.net/stats/3490d3ff2913824363808c07a6645ab5/badge.svg)
+
 
 <!-- fill in the blanks -->
 
@@ -56,15 +55,16 @@ To see this app in action without installing anything, simply visit https://ibm-
 
 1. To see the app and services created and configured for this code pattern, use the IBM Cloud dashboard. The app is named `shopping-list-react-pouchdb` with a unique suffix. The following services are created and easily identified by the `sljsp` prefix:
 
-    * sljsp-CloudantNoSQLDB
+
+  * sljsp-CloudantNoSQLDB
 
 ## Run locally
 
 > NOTE: These steps are only needed when running locally instead of using the ``Deploy to IBM Cloud`` button.
 
 1. [Clone the repo](#1-clone-the-repo)
-1. [Install the prerequisites](#2-install-the-prerequisites)
-1. [Run the server](#3-run-the-server)
+1. [Install the dependencies](#2-install-the-dependencies)
+1. [Run the app](#3-run-the-app)
 1. [Create a Cloudant or CouchDB service](#4-create-a-cloudant-or-couchdb-service)
 
 ### 1. Clone the repo
@@ -75,12 +75,6 @@ Clone the `shopping-list-react-pouchdb` locally. In a terminal, run:
 $ git clone https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb
 ```
 
-### 2. Install the prerequisites 
-
-First, install the dependencies (we assume you have pre-installed [Node.js](https://nodejs.org/)):
-
-    cd shopping-list-react-pouchdb
-    npm install
 
 ### 3. Run the server
 
@@ -88,21 +82,42 @@ This command serves the app at `http://127.0.0.1:3000` and provides basic URL ro
 
     npm start
 
+=======
+### 2. Install the dependencies
+
+To install the dependencies, run the command:
+
+    npm install
+
+### 3. Run the app
+
+This command starts the app:
+
+    npm start
+
 ### 4. Create a Cloudant or CouchDB service
 
 PouchDB can synchronize with CouchDB and compatible servers. To run and test locally, you can install CouchDB. Alternatively, you can use a hosted Cloudant NoSQL DB service for your remote DB.
 
-#### Installing Apache CouchDB (UPDATE AS NEEDED)
+#### Installing Apache CouchDB
 
 [Install CouchDB 2.1](http://docs.couchdb.org/en/2.1.0/install/index.html). Instructions are available for installing CouchDB 2.1 on Unix-like systems, on Windows, on Mac OS X, on FreeBSD, and via other methods.
 
 Configure CouchDB for a [single-node setup](http://docs.couchdb.org/en/2.1.0/install/setup.html#single-node-setup), as opposed to a cluster setup. Once you have finished setting up CouchDB, you should be able to access CouchDB at `http://127.0.0.1:5984/`. Ensure that CouchDB is running and take note of your admin username and password.
 
-#### Creating a Cloudant NoSQL DB service (UPDATE AS NEEDED)
+#### Creating a Cloudant NoSQL DB service
 
-Sign up for an [IBM Cloud](https://console.ng.bluemix.net/) account, if you do not already have one.
+To provision a managed Cloudant NoSQL DB
 
-Once you are logged in to IBM Cloud, create a new Cloudant instance on the [Cloudant NoSQL DB IBM Cloud Catalog](https://console.ng.bluemix.net/catalog/services/cloudant-nosql-db) page. This should take you to a page representing the newly-created service instance. Click the "Service credentials" link. You should have one set of service credentials listed. Click "View credentials" which should show you a JSON object containing your service credentials. Copy the value for the `url` key to your clipboard (the value will be in the form of `https://username:password@uniqueid-bluemix.cloudant.com`).
+* Log in to [IBM Cloud](https://console.ng.bluemix.net/).
+   > Sign up for an account, if you do not already have one.
+* [Provision a Cloudant NoSQL DB _Lite_ plan instance](https://console.bluemix.net/catalog/services/cloudant-nosql-db), which is free.
+  > If desired, you can also re-use an existing Cloudant NoSQL DB service instance. (Open the [**Data & Analytics**  resources dashboard](https://console.bluemix.net/dashboard/data) to see a list of pre-provisioned instances that you have access to.) 
+ * Open the **Service credentials** tab.
+* Add new credentials for this service instance if no credentials have been defined yet.
+* View the credentials and note the value of the **url** property, which has the following format: `https://username:password@username-bluemix.cloudant.com`.
+
+Tip: Select the **Manage** tab and click **Launch** to open the Cloudant dashboard and manage the service instance.
 
 ## Database and replication setup (UPDATE AS NEEDED)
 1. [Create the remote database](#1-create-the-remote-database)
@@ -149,13 +164,13 @@ When you go online and have the database and CORS enabled and the Replication Ta
 
 ## Deploying to GitHub Pages (UPDATE AS NEEDED)
 
-# Privacy Notice (UPDATE AS NEEDED)
+# Privacy Notice
 
 Refer to https://github.com/IBM/metrics-collector-service#privacy-notice.
 
-## Disabling Deployment Tracking (UPDATE AS NEEDED)
+## Disabling Deployment Tracking
 
-To disable tracking, simply remove ``require('metrics-tracker-client').track();`` from the ``app.js`` file in the top level directory.
+To disable tracking, simply remove `node log &&` from the `package.json` file.
 
 <!--Include any relevant links-->
 
