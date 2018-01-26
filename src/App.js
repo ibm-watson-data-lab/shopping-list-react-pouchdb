@@ -371,7 +371,7 @@ class App extends React.Component {
     if (this.state.view === 'items') 
       return (<IconButton touch={true} onClick={this.getShoppingLists}><KeyboardBackspace /></IconButton>)
     else 
-      return (<img src="cart_sm.png" width="48px" />)
+      return (<img src="cart_sm.png" width="48px" alt="Shopping List app logo" />)
   }
 
   renderSettingsButton = () => {
