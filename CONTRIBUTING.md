@@ -43,5 +43,5 @@ For more details, see the [MAINTAINERS](MAINTAINERS.md) page.
 ## Developer Setup
 
 Follow the "Run locally" steps in the `README` and you will have a local git repo 
-and test environment, or use "Deploy to Bluemix" and you can use the Bluemix DevOps environment.
+and test environment, or use "Deploy to IBM Cloud" and you can use the IBM Cloud DevOps environment.
 
