@@ -6,7 +6,7 @@
 
 In this code pattern, we will create an Offline First shopping list. Shopping List is an Offline First demo [Progressive Web App](https://developers.google.com/web/progressive-web-apps/) built using [React](https://reactjs.org/) and [PouchDB](https://pouchdb.com/). [This app is part of a series of Offline First demo apps, each built using a different stack.](https://github.com/ibm-watson-data-lab/shopping-list)
 
-When the reader has completed this Code Pattern, they will understand how to:
+When the reader has completed this Code Pattern and explored the code in this GitHub repository, they will understand how to:
 
 - Create a shopping list web application that stores its data in a local PouchDB database.
 - Turn the web application into a Progressive Web App that works with or without an internet connection.
