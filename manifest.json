@@ -1,15 +1,30 @@
 {
-    "short_name": "React Shop List",
+    "short_name": "ShoppingList",
     "name": "React Shopping List PWA",
     "icons": [
       {
         "src": "favicon.ico",
+        "sizes": "48x48",
+        "type": "image/png"
+      },
+      {
+        "src": "android-chrome-192x192.png",
         "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "android-chrome-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      },
+      {
+        "src": "apple-touch-icon.png",
+        "sizes": "48x48",
         "type": "image/png"
       }
     ],
     "start_url": "./index.html",
     "display": "standalone",
     "theme_color": "#000000",
-    "background_color": "#ffffff"
+    "background_color": "#657c89"
 }
