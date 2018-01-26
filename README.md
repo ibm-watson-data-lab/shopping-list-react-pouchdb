@@ -88,7 +88,7 @@ To see this app in action without installing anything, simply visit https://ibm-
 
 ### 1. Clone the repo
 
-Clone the `shopping-list-react-pouchdb` locally. In a terminal, run:
+Clone the `shopping-list-react-pouchdb` repository locally. In a terminal, run:
 
 ```
 $ git clone https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb
