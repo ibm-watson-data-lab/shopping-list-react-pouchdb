@@ -2,17 +2,15 @@
 [![Build Status](https://travis-ci.org/ibm-watson-data-lab/shopping-list-react-pouchdb.svg?branch=master)](https://travis-ci.org/ibm-watson-data-lab/shopping-list-react-pouchdb)
 ![IBM Cloud Deployments](https://metrics-tracker.mybluemix.net/stats/3490d3ff2913824363808c07a6645ab5/badge.svg)
 
-<!-- fill in the blanks -->
-
 # Create an Offline First Shopping List with React and PouchDB
 
 In this code pattern, we will create an Offline First shopping list. Shopping List is an Offline First demo [Progressive Web App](https://developers.google.com/web/progressive-web-apps/) built using [React](https://reactjs.org/) and [PouchDB](https://pouchdb.com/). [This app is part of a series of Offline First demo apps, each built using a different stack.](https://github.com/ibm-watson-data-lab/shopping-list)
 
 When the reader has completed this Code Pattern, they will understand how to:
 
-- create a shopping list web application that stores its data in a local PouchDB database.
-- turn the web application into a Progressive Web App that works with or without an internet connection.
-- make the app sync to and from a remote Cloudant database.
+- Create a shopping list web application that stores its data in a local PouchDB database.
+- Turn the web application into a Progressive Web App that works with or without an internet connection.
+- Make the app sync to and from a remote Cloudant database.
 
 ![](doc/source/images/architecture.png)
 
@@ -29,10 +27,10 @@ When the reader has completed this Code Pattern, they will understand how to:
 
 ## Featured technologies
 
-* [PouchDB](https://pouchdb.com/) - an in-browser database that can replicate to and from a remote Apache CouchDB or IBM Cloudant database.
-* [React](https://reactjs.org/) - a JavaScript library for building user interfaces.
+* [PouchDB](https://pouchdb.com/) - An in-browser database that can replicate to and from a remote CouchDB or IBM Cloudant database.
+* [React](https://reactjs.org/) - React is a JavaScript library for building user interfaces.
 * [Material UI](http://www.material-ui.com/) - React components that implement Google's Material Design.
-* [Apache CouchDB](http://couchdb.apache.org/) - modern, document database hosted on your server or in the cloud.
+* [Apache&reg; CouchDB&trade;](http://couchdb.apache.org/) - modern, document database hosted on your server or in the cloud.
 
 ## Key concepts
 
@@ -62,8 +60,8 @@ To see this app in action without installing anything, simply visit https://ibm-
 
 # Steps
 
-* [Deploy to IBM Cloud](#deploy-to-ibm-cloud) **OR** [Run locally](#run-locally)
-* [Database and replication setup](#database-and-replication-setup)
+* [Deploy to IBM Cloud](#deploy-to-ibm-cloud) **OR** [Run locally](#run-locally).
+* [Database and replication setup](#database-and-replication-setup).
 
 
 ## Deploy to IBM Cloud
@@ -81,10 +79,10 @@ To see this app in action without installing anything, simply visit https://ibm-
 
 > NOTE: These steps are only needed when running locally instead of using the ``Deploy to IBM Cloud`` button.
 
-1. [Clone the repo](#1-clone-the-repo)
-1. [Install the dependencies](#2-install-the-dependencies)
-1. [Run the app](#3-run-the-app)
-1. [Create a Cloudant or CouchDB service](#4-create-a-cloudant-or-couchdb-service)
+1. [Clone the repo](#1-clone-the-repo).
+1. [Install the dependencies](#2-install-the-dependencies).
+1. [Run the app](#3-run-the-app).
+1. [Create a Cloudant or CouchDB service](#4-create-a-cloudant-or-couchdb-service).
 
 ### 1. Clone the repo
 
@@ -132,17 +130,15 @@ To provision a managed Cloudant NoSQL DB
 Tip: Select the **Manage** tab and click **Launch** to open the Cloudant dashboard and manage the service instance.
 
 ## Database and replication setup
-1. [Create the remote database](#1-create-the-remote-database)
-1. [Enable CORS](#2-enable-cors)
-1. [Set the replication target](#3-set-the-replication-target)
+1. [Create the remote database](#1-create-the-remote-database).
+1. [Enable CORS](#2-enable-cors).
+1. [Set the replication target](#3-set-the-replication-target).
 
 ### 1. Create the remote database
 
 * Use the Cloudant or CouchDB dashboard to create a database.
 
-* Select the Databases tab on the left and then use the `Create Database` button to create the "shopping-list" database.
-The Shopping List app can be used locally before the database exists, but cannot sync
-until the remote database is completed.
+* Select the Databases tab on the left and then use the `Create Database` button to create the "shopping-list" database. The Shopping List app can be used locally before the database exists, but cannot sync until the remote database is completed.
 
   ![Create shopping-list database](doc/source/images/create_db.png)
 
@@ -219,3 +215,5 @@ To disable tracking, simply remove `node log &&` from the `package.json` file.
 
 # License
 [Apache 2.0](LICENSE)
+
+Apache&reg;, [Apache CouchDB&trade;](http://couchdb.apache.org/), [CouchDB&trade;](http://couchdb.apache.org/), and the red couch logo are either registered trademarks or trademarks of the [Apache Software Foundation](http://www.apache.org/) in the United States and/or other countries.
