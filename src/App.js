@@ -14,6 +14,7 @@ import {Card, CardTitle} from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import KeyboardBackspace from 'material-ui/svg-icons/hardware/keyboard-backspace';
 import SettingsIcon from 'material-ui/svg-icons/action/settings';
+import AboutIcon from 'material-ui/svg-icons/action/info-outline';
 import {grey800, blueGrey500, pinkA100, white} from 'material-ui/styles/colors';
 
 import PouchDB from 'pouchdb';
@@ -59,6 +60,7 @@ class App extends React.Component {
       view: 'lists',
       newName: '',
       settingsOpen: false,
+      aboutOpen: false
     }
   }
 
@@ -374,8 +376,16 @@ class App extends React.Component {
       return (<img src="cart_sm.png" width="48px" alt="Shopping List app logo" />)
   }
 
-  renderSettingsButton = () => {
-    return (<IconButton touch={true} onClick={this.handleOpenSettings}><SettingsIcon /></IconButton>);
+  renderActionButtons = () => {
+    const iconStyle = {
+      fill: 'white'
+    };
+    return (
+      <div>
+      <IconButton touch={true} onClick={this.handleOpenSettings} iconStyle={iconStyle}><SettingsIcon /></IconButton>
+      <IconButton touch={true} onClick={this.handleOpenAbout} iconStyle={iconStyle}><AboutIcon /></IconButton>
+      </div>
+    );
   }
 
   /**
@@ -390,6 +400,20 @@ class App extends React.Component {
    */
   handleCloseSettings = () => {
     this.setState({settingsOpen: false});
+  }
+
+  /**
+   * Tell component we want to show about dialog
+   */
+  handleOpenAbout = () => {
+    this.setState({aboutOpen: true});
+  }
+
+  /**
+   * Tell component we want to hide about dialog
+   */
+  handleCloseAbout = () => {
+    this.setState({aboutOpen: false});
   }
 
   /**
@@ -434,6 +458,31 @@ class App extends React.Component {
   }
 
   /**
+   * Show about dialog UI
+   */
+  showAboutDialog = () => {
+    const actions = [
+        <FlatButton label="Close" primary={false} keyboardFocused={true} onClick={this.handleCloseAbout} />
+    ];
+
+    return (
+      <Dialog 
+        title="About" 
+        actions={actions} 
+        modal={false} 
+        open={this.state.aboutOpen} 
+        onRequestClose={this.handleAboutSettings}
+      >
+      <p>
+        <a href="https://github.com/ibm-watson-data-lab/shopping-list" target="_blank">Shopping List is a series of Offline First demo apps, each built using a different stack.</a>
+          These demo apps cover Progressive Web Apps, hybrid mobile apps, native mobile apps, and desktop apps. This particular demo app is a <strong>Progressive Web App</strong>
+          built using <strong>Vanilla JS and PouchDB</strong>. <a href="https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb" target="_blank">Get the source code</a>.
+      </p>
+      </Dialog>
+    )
+  }
+
+  /**
    * Show the UI
    */
   render() {
@@ -445,12 +494,13 @@ class App extends React.Component {
         <AppBar title={screenname} 
                 iconElementLeft={this.renderBackButton()}
                 style={appBarStyle} 
-                iconElementRight={this.renderSettingsButton()} />
+                iconElementRight={this.renderActionButtons()} />
         <div className={'listsanditems'} style={{margin:'8px'}}>
           {this.state.adding ? this.renderNewNameUI() : <span/>}
           {this.state.view === 'lists' ? this.renderShoppingLists() : this.renderShoppingListItems()}
         </div>
         {this.state.settingsOpen ? this.showSettingsDialog() : <span/>}
+        {this.state.aboutOpen ? this.showAboutDialog() : <span/>}
         <FloatingActionButton 
           onClick={this.displayAddingUI} 
           mini={true}
