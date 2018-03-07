@@ -16,14 +16,14 @@
     "gh-pages": "^1.0.0",
     "ibm-shopping-list-model": "^0.4.0",
     "immutable": "^3.8.1",
-    "material-ui": "^0.19.1",
+    "material-ui": "^0.20.0",
     "metrics-tracker-client": "^0.2.3",
     "pouchdb": "^6.3.4",
     "pouchdb-find": "^6.3.4",
     "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-scripts": "1.0.10"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-scripts": "1.1.1"
   },
   "scripts": {
     "start": "node log && react-scripts start",
