@@ -184,7 +184,6 @@ This project does not, at present, have any automated tests. Tests can be added 
 The shopping list can be deployed to and accessed from GitHub Pages. To deploy to `gh-pages` branch, in a terminal, run:
 
 ```
-$ npm run build
 $ npm run deploy
 ```
 
