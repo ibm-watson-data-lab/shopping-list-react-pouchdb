@@ -37,8 +37,8 @@ const appBarStyle = {
   width: "100%", 
 };
 
-const NOLISTMSG = "Click the + sign above to create a shopping list."
-const NOITEMSMSG = "Click the + sign above to create a shopping list item."
+const NOLISTMSG = "Click the + sign below to create a shopping list."
+const NOITEMSMSG = "Click the + sign below to create a shopping list item."
 
 /** 
  * This is the main React application
