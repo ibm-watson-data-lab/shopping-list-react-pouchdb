@@ -6,7 +6,7 @@ declared-services:
 applications:
 - name: shopping-list-react-pouchdb
   buildpack: sdk-for-nodejs
-  memory: 512M
+  memory: 256M
   instances: 1
   disk_quota: 1024M
   host: shopping-list-react-pouchdb-${random-word}
