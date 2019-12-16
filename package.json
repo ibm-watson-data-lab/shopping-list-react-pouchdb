@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "ajv": "^6.5.2",
-    "cuid": "^2.1.1",
+    "cuid": "^2.1.8",
     "gh-pages": "^1.2.0",
     "hoek": "^5.0.3",
     "ibm-shopping-list-model": "^0.4.0",
