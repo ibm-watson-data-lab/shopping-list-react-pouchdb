@@ -1,6 +1,6 @@
 ---
 declared-services:
-  sljsp-cloudantNoSQLDB:
+  slpp-cloudantNoSQLDB:
     label: cloudantNoSQLDB
     plan: Lite
 applications:
@@ -11,4 +11,4 @@ applications:
   disk_quota: 1024M
   host: shopping-list-react-pouchdb-${random-word}
   services:
-  - sljsp-cloudantNoSQLDB
+  - slpp-cloudantNoSQLDB
