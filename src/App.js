@@ -474,9 +474,9 @@ class App extends React.Component {
         onRequestClose={this.handleAboutSettings}
       >
       <p>
-        <a href="https://github.com/ibm-watson-data-lab/shopping-list" target="_blank">Shopping List is a series of Offline First demo apps, each built using a different stack.</a>
+        <a href="https://github.com/ibm-watson-data-lab/shopping-list" target="_blank" rel="noopener noreferrer">Shopping List is a series of Offline First demo apps, each built using a different stack.</a>
           These demo apps cover Progressive Web Apps, hybrid mobile apps, native mobile apps, and desktop apps. This particular demo app is a <strong>Progressive Web App</strong>
-          built using <strong>React and PouchDB</strong>. <a href="https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb" target="_blank">Get the source code</a>.
+          built using <strong>React and PouchDB</strong>. <a href="https://github.com/ibm-watson-data-lab/shopping-list-react-pouchdb" target="_blank" rel="noopener noreferrer">Get the source code</a>.
       </p>
       </Dialog>
     )

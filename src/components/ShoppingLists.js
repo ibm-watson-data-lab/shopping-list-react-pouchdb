@@ -109,7 +109,7 @@ class ShoppingLists extends React.Component {
   }
 }
 
-ShoppingLists.PropTypes = {
+ShoppingLists.propTypes = {
     shoppingLists: PropTypes.array.isRequired, 
     deleteFunc: PropTypes.func.isRequired, 
     openListFunc: PropTypes.func.isRequired, 
